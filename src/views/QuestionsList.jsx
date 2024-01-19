@@ -64,7 +64,7 @@ export const QuestionsList = (props) => {
 
       const token = await getAccessTokenSilently();
 
-      const response = await fetch(`${apiOrigin}/api/people/Wakefield.7`, {
+      const response = await fetch(`${apiOrigin}/api/questions/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

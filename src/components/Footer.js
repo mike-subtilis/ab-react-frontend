@@ -1,11 +1,10 @@
 import React from "react";
 
 const Footer = () => (
-  <footer className="bg-light p-3 text-center">
-    <div className="logo" />
-    <p>
-      Sample project provided by <a href="https://auth0.com">Auth0</a>
-    </p>
+  <footer style={{ padding: 5, backgroundColor: '#f0f0f0' }}>
+    <small>
+      AnswerBrawl (c) 2024
+    </small>
   </footer>
 );
 

@@ -1,18 +1,19 @@
-import React, { useState } from "react";
-import { Button, Alert } from "reactstrap";
-import Highlight from "../components/Highlight";
-import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import React, { useState } from 'react';
+import { Alert, AlertIcon, AlertDescription, Button, Grid } from '@chakra-ui/react';
+import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import { getConfig } from "../config";
 import Loading from "../components/Loading";
+import Question from './Question.jsx';
 
 export const QuestionsList = (props) => {
   const { apiOrigin = "http://localhost:3001", audience } = getConfig();
-
   const [state, setState] = useState({
     showResult: false,
     apiMessage: "",
     error: null,
   });
+
+  const [questions, setQuestions] = useState([]);
 
   const {
     getAccessTokenSilently,
@@ -70,7 +71,7 @@ export const QuestionsList = (props) => {
         },
       });
       const responseData = await response.json();
-
+      setQuestions(responseData || []);
       setState({
         ...state,
         showResult: true,
@@ -91,51 +92,48 @@ export const QuestionsList = (props) => {
 
   return <div>
     {state.error === "consent_required" && (
-      <Alert color="warning">
-        You need to{" "}
-        <a
-          href="#/"
-          class="alert-link"
-          onClick={(e) => handle(e, handleConsent)}
-        >
-          consent to get access to users api
-        </a>
+      <Alert status='warning'>
+        <AlertIcon />
+        <AlertDescription>
+          You need to{" "}
+          <a
+            href="#/"
+            class="alert-link"
+            onClick={(e) => handle(e, handleConsent)}
+          >
+            consent to get access to users api
+          </a>
+        </AlertDescription>
       </Alert>
     )}
 
     {state.error === "login_required" && (
-      <Alert color="warning">
-        You need to{" "}
-        <a
-          href="#/"
-          class="alert-link"
-          onClick={(e) => handle(e, handleLoginAgain)}
-        >
-          log in again
-        </a>
+      <Alert status='warning'>
+        <AlertIcon />
+        <AlertDescription>
+          You need to{" "}
+          <a
+            href="#/"
+            class="alert-link"
+            onClick={(e) => handle(e, handleLoginAgain)}
+          >
+            log in again
+          </a>
+        </AlertDescription>
       </Alert>
     )}
 
-    <h2>List of Questions I suppose</h2>
     <Button
-      color="primary"
-      className="mt-5"
       onClick={callQuestionsApi}
+      colorScheme='red'
       disabled={!audience}
     >
       Ping API
     </Button>
 
-    <div className="result-block-container">
-      {state.showResult && (
-        <div className="result-block" data-testid="api-result">
-          <h6 className="muted">Result</h6>
-          <Highlight>
-            <span>{JSON.stringify(state.apiMessage, null, 2)}</span>
-          </Highlight>
-        </div>
-      )}
-    </div>
+    <Grid gap={2} autoFlow='row'>
+      {questions.map(q => <Question question={q} key={q.id} />)}
+    </Grid>
 
   </div>;
 };

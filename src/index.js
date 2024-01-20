@@ -1,10 +1,11 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import { Auth0Provider } from "@auth0/auth0-react";
-import history from "./utils/history";
-import { getConfig } from "./config";
+import { Auth0Provider } from '@auth0/auth0-react';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import App from './App';
+import history from './utils/history';
+import { getConfig } from './config';
+import ErrorBoundary from './components/ErrorBoundary.jsx';
 
 const onRedirectCallback = (appState) => {
   history.push(
@@ -27,10 +28,10 @@ const providerConfig = {
 };
 
 const root = createRoot(document.getElementById('root'));
-root.render(
+root.render(<ErrorBoundary>
   <Auth0Provider
     {...providerConfig}
   >
     <App />
-  </Auth0Provider>,
-);
+  </Auth0Provider>
+</ErrorBoundary>);

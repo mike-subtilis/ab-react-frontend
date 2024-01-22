@@ -5,7 +5,7 @@ import './index.css';
 import App from './App';
 import history from './utils/history';
 import { getConfig } from './config';
-import ErrorBoundary from './components/ErrorBoundary.jsx';
+import ErrorBoundary from './components/common/ErrorBoundary.jsx';
 
 const onRedirectCallback = (appState) => {
   history.push(

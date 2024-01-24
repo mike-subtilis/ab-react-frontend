@@ -4,6 +4,8 @@ import {
 } from '@chakra-ui/react';
 import React, { useEffect, useRef, useState } from 'react';
 import QuestionCompactView from './QuestionCompactView.jsx';
+import ChakraTagInput from '../common/ChakraTagInput/index.tsx';
+import { useAuthenticatedApiConnection } from '../../utils/apiConnection.js';
 
 const defaultQuestion = { prefix: 'What is the', text: '', tags: [] };
 
@@ -39,14 +41,25 @@ const AskQuestionDialog = ({ isOpen, onClose }) => {
               <option value='Where is the'>Where is the</option>
             </Select>
             <HStack gap={2}>
-              <Input placeholder='e.g. Best, Fastest, Cheapest, ...' size='md' minWidth={200}
+              <Input placeholder='e.g. Best, Cheapest, Fastest, Favorite, ...'
+                size='md'
+                minWidth={200}
                 value={questionTextAdjective}
                 onChange={e => setQuestionTextAdjective(e.target.value)} />
-              <Input placeholder='thing' size='md' flexGrow={1} minWidth={200}
+              <Input placeholder='thing'
+                size='md'
+                flexGrow={1}
+                minWidth={200}
                 value={questionTextNoun}
                 onChange={e => setQuestionTextNoun(e.target.value)} />
             </HStack>
+            <ChakraTagInput
+              placeholder='Tags (e.g. enter a keyword and press Enter)'
+              tags={question.tags}
+              onTagsChange={(e, t) => setQuestion(q => ({ ...q, tags: t }))}
+              tagProps={{ size: 'sm', borderRadius: 'full', colorScheme: 'red', variant: 'solid' }}/>
           </VStack>
+
           <Divider />
 
           <QuestionCompactView question={question} />

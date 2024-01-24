@@ -17,10 +17,14 @@ export const useAuthenticatedApiConnection = () => {
 
       const token = await getAccessTokenSilently();
 
+      const maybeDataHeader = data ? { 'Content-Type': 'application/json;charset=UTF-8' } : {};
       const maybeData = data ? { body: JSON.stringify(data) } : {};
       const response = await fetch(`${apiOrigin}${url}`, {
         method: method,
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          ...maybeDataHeader,
+        },
         ...maybeData,
       });
       const responseData = await response.json();

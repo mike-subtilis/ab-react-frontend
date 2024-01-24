@@ -9,7 +9,7 @@ import NavBar from "./components/NavBar";
 import Footer from './components/Footer';
 import Home from "./views/Home";
 import Profile from "./views/Profile";
-import QuestionsList from './views/QuestionsList.jsx';
+import QuestionsPage from './views/QuestionsPage.jsx';
 import history from "./utils/history";
 
 // styles
@@ -35,11 +35,11 @@ const App = () => {
       <div id="app" className="d-flex flex-column h-100">
         <ChakraProvider>
           <NavBar />
-          <Container className="flex-grow-1 mt-5">
+          <Container className="flex-grow-1 mt-2">
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/profile" component={Profile} />
-              <Route path="/questions" component={QuestionsList} />
+              <Route path="/questions" component={QuestionsPage} />
             </Switch>
           </Container>
           <Footer />

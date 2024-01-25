@@ -1,10 +1,32 @@
 /* FROM: https://codesandbox.io/p/sandbox/chakra-tag-input-d04s0 */
 
 import React, { forwardRef, useCallback } from 'react'
+import type { ForwardedRef, KeyboardEvent, SyntheticEvent } from 'react'
 import { Input, Wrap, WrapItem, WrapItemProps, WrapProps, VStack } from '@chakra-ui/react'
+import type { InputProps, TagProps, TagLabelProps, TagCloseButtonProps } from '@chakra-ui/react'
 
-import { maybeCall } from './maybe.js';
-import ChakraTagInputTag from './Tag.jsx';
+import { maybeCall } from './maybe.ts';
+import type { MaybeFunc } from './maybe.ts';
+import ChakraTagInputTag from './Tag.tsx';
+
+type MaybeIsInputProps<P> = MaybeFunc<[isInput: boolean, index?: number], P>
+type MaybeTagProps<P> = MaybeFunc<[tag: string, index?: number], P>
+
+export type ChakraTagInputProps = InputProps & {
+  tags?: string[]
+  onTagsChange?(event: SyntheticEvent, tags: string[]): void
+  onTagAdd?(event: SyntheticEvent, value: string): void
+  onTagRemove?(event: SyntheticEvent, index: number): void
+
+  vertical?: boolean
+  addKeys?: string[]
+
+  wrapProps?: WrapProps,
+  wrapItemProps?: MaybeIsInputProps<WrapItemProps>,
+  tagProps?: MaybeTagProps<TagProps>
+  tagLabelProps?: MaybeTagProps<TagLabelProps>
+  tagCloseButtonProps?: MaybeTagProps<TagCloseButtonProps>
+}
 
 export default forwardRef(function ChakraTagInput({
   tags = [],
@@ -19,9 +41,9 @@ export default forwardRef(function ChakraTagInput({
   tagLabelProps,
   tagCloseButtonProps,
   ...props
-}, ref) {
+}: ChakraTagInputProps, ref: ForwardedRef<HTMLInputElement>) {
   const addTag = useCallback(
-    (event, tag) => {
+    (event: SyntheticEvent, tag: string) => {
       onTagAdd?.(event, tag)
       if (event.isDefaultPrevented()) return
 
@@ -30,7 +52,7 @@ export default forwardRef(function ChakraTagInput({
     [tags, onTagsChange, onTagAdd]
   )
   const removeTag = useCallback(
-    (event, index) => {
+    (event: SyntheticEvent, index: number) => {
       onTagRemove?.(event, index)
       if (event.isDefaultPrevented()) return
 
@@ -39,14 +61,14 @@ export default forwardRef(function ChakraTagInput({
     [tags, onTagsChange, onTagRemove]
   )
   const handleRemoveTag = useCallback(
-    (index) => (event) => {
+    (index: number) => (event: SyntheticEvent) => {
       removeTag(event, index)
     },
     [removeTag]
   )
   const onKeyDown = props.onKeyDown
   const handleKeyDown = useCallback(
-    (event) => {
+    (event: KeyboardEvent<HTMLInputElement>) => {
       onKeyDown?.(event)
 
       if (event.isDefaultPrevented()) return

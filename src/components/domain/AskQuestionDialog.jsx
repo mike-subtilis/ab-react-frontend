@@ -4,7 +4,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useEffect, useRef, useState } from 'react';
 import QuestionCompactView from './QuestionCompactView.jsx';
-import ChakraTagInput from '../common/ChakraTagInput/index.tsx';
+import ChakraTagInput from '../common/ChakraTagInput/index.jsx';
 import { useAuthenticatedApiConnection } from '../../utils/apiConnection.js';
 
 const defaultQuestion = { prefix: 'What is the', text: '', tags: [] };

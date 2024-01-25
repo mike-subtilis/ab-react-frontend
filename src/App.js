@@ -7,7 +7,6 @@ import { Container } from "reactstrap";
 import Loading from "./components/Loading";
 import NavBar from "./components/NavBar";
 import Footer from './components/Footer';
-import Home from "./views/Home";
 import Profile from "./views/Profile";
 import QuestionsPage from './views/QuestionsPage.jsx';
 import history from "./utils/history";
@@ -37,7 +36,7 @@ const App = () => {
           <NavBar />
           <Container className="flex-grow-1 mt-2">
             <Switch>
-              <Route path="/" exact component={Home} />
+              <Route path="/" exact component={QuestionsPage} />
               <Route path="/profile" component={Profile} />
               <Route path="/questions" component={QuestionsPage} />
             </Switch>

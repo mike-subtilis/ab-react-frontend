@@ -14,7 +14,7 @@ const AskQuestionDialog = ({ isOpen, onClose }) => {
   const [question, setQuestion] = useState(defaultQuestion);
   const [questionTextAdjective, setQuestionTextAdjective] = useState('Best');
   const [questionTextNoun, setQuestionTextNoun] = useState('');
-  const { apiPost, hasPending } = useAuthenticatedApiConnection();
+  const { apiPost } = useAuthenticatedApiConnection(); // TODO: also extract hasPending
 
   useEffect(() => {
     setQuestion(q => ({ ...q, text: `${questionTextAdjective} ${questionTextNoun}`}));

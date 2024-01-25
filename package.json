@@ -7,15 +7,13 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "lint": "./node_modules/.bin/eslint ./src",
     "spa": "react-scripts start",
     "server": "node server.js",
     "server:dev": "nodemon server.js"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.0",
-    "@babel/core": "^7.23",
-    "@babel/plugin-syntax-flow": "^7.23",
-    "@babel/plugin-transform-react-jsx": "^7.23",
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
@@ -42,8 +40,14 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.23",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/plugin-syntax-flow": "^7.23",
+    "@babel/plugin-transform-react-jsx": "^7.23",
     "@testing-library/jest-dom": "^5.17",
     "@testing-library/react": "^14.1",
+    "@typescript-eslint/typescript-estree": "^6.19.1",
+    "eslint": "^8.56.0",
     "jest-environment-jsdom": "^27.0",
     "jest-fetch-mock": "^3.0",
     "nodemon": "^2.0"

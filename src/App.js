@@ -6,9 +6,9 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { Container } from "reactstrap";
 import Loading from "./components/Loading";
 import NavBar from "./components/NavBar";
-import Footer from './components/Footer';
-import Home from "./views/Home";
+import Footer from './components/Footer.jsx';
 import Profile from "./views/Profile";
+import HomePage from './views/HomePage.jsx';
 import QuestionsPage from './views/QuestionsPage.jsx';
 import history from "./utils/history";
 
@@ -37,9 +37,9 @@ const App = () => {
           <NavBar />
           <Container className="flex-grow-1 mt-2">
             <Switch>
-              <Route path="/" exact component={Home} />
+              <Route path="/" exact component={HomePage} />
+              <Route path="/questions" exact component={QuestionsPage} />              
               <Route path="/profile" component={Profile} />
-              <Route path="/questions" component={QuestionsPage} />
             </Switch>
           </Container>
           <Footer />

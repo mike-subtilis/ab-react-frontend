@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  Card, CardBody, CardHeader, CardFooter, Heading, HStack, Text, VStack, 
+  Card, CardBody, CardHeader, Heading, HStack, Text, VStack, 
 } from '@chakra-ui/react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const HomePage = () => {
   return <VStack gap={2}>
@@ -14,7 +15,10 @@ const HomePage = () => {
     <HStack>
       <Card>
         <CardHeader>
-          <Heading size='lg'>Vote on answers</Heading>
+          <Heading size='lg'>
+            <FontAwesomeIcon icon='vote-yea' />&nbsp;
+            Vote on answers
+          </Heading>
         </CardHeader>
         <CardBody>
           AnswerBrawl will (at some point) present you with 2 possible answers to a question.
@@ -24,7 +28,10 @@ const HomePage = () => {
 
       <Card>
         <CardHeader>
-          <Heading size='lg'>View rankings of answers</Heading>
+          <Heading size='lg'>
+            <FontAwesomeIcon icon='star' />&nbsp;
+            View rankings of answers
+          </Heading>
         </CardHeader>
         <CardBody>
           AnswerBrawl will (at some point) compile all votes and present a ranking of all of the answers.
@@ -33,7 +40,10 @@ const HomePage = () => {
 
       <Card>
         <CardHeader>
-          <Heading size='lg'>Ask a new question</Heading>
+          <Heading size='lg'>
+            <FontAwesomeIcon icon='question' />&nbsp;
+            Ask a new question
+          </Heading>
         </CardHeader>
         <CardBody>
           You can ask a new question, supply it with a ton of potential answers, and then begin voting

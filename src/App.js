@@ -11,12 +11,12 @@ import Profile from "./views/Profile";
 import HomePage from './views/HomePage.jsx';
 import QuestionsPage from './views/QuestionsPage.jsx';
 import history from "./utils/history";
+import initFontAwesome from './utils/initFontAwesome';
 
 // styles
 import "./App.css";
 
 // fontawesome
-import initFontAwesome from "./utils/initFontAwesome";
 initFontAwesome();
 
 const App = () => {

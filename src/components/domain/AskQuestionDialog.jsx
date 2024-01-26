@@ -5,7 +5,7 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import QuestionCompactView from './QuestionCompactView.jsx';
 import ChakraTagInput from '../common/ChakraTagInput/index.jsx';
-import { useAuthenticatedApiConnection } from '../../utils/apiConnection.js';
+import { useApiConnection } from '../../utils/apiConnection.js';
 
 const defaultQuestion = { prefix: 'What is the', text: '', tags: [] };
 
@@ -14,7 +14,7 @@ const AskQuestionDialog = ({ isOpen, onClose }) => {
   const [question, setQuestion] = useState(defaultQuestion);
   const [questionTextAdjective, setQuestionTextAdjective] = useState('Best');
   const [questionTextNoun, setQuestionTextNoun] = useState('');
-  const { apiPost } = useAuthenticatedApiConnection();
+  const { apiPost } = useApiConnection();
 
   useEffect(() => {
     setQuestion(q => ({ ...q, text: `${questionTextAdjective} ${questionTextNoun}`}));

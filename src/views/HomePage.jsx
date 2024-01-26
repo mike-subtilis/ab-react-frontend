@@ -47,7 +47,9 @@ const HomePage = () => {
         </CardHeader>
         <CardBody>
           You can ask a new question, supply it with a ton of potential answers, and then begin voting
-          on those questions. You can choose to make the question public or private.
+          on those questions. You can choose to make the question public or private. You'll
+          need to be signed up and logged in to ask a new question.
+          (Currently you can ask a new question without answers if you sign up)
         </CardBody>
       </Card>
 

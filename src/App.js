@@ -1,10 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, Container } from '@chakra-ui/react'
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 
-import { Container } from "reactstrap";
-import Loading from "./components/Loading";
+import Spinner from './components/common/Spinner.jsx';
 import NavBar from "./components/NavBar";
 import Footer from './components/Footer.jsx';
 import Profile from "./views/Profile";
@@ -27,7 +26,7 @@ const App = () => {
   }
 
   if (isLoading) {
-    return <Loading />;
+    return <Spinner />;
   }
 
   return (
@@ -35,7 +34,7 @@ const App = () => {
       <div id="app" className="d-flex flex-column h-100">
         <ChakraProvider>
           <NavBar />
-          <Container className="flex-grow-1 mt-2">
+          <Container maxW='100%' style={{ flexGrow: 1 }}>
             <Switch>
               <Route path="/" exact component={HomePage} />
               <Route path="/questions" exact component={QuestionsPage} />              

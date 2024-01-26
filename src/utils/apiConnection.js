@@ -2,27 +2,31 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 import { getConfig } from '../config';
 
-export const useAuthenticatedApiConnection = () => {
+export const useApiConnection = () => {
   const [pendingCount, setPendingCount] = useState(0);
   const [hasPending, setHasPending] = useState(false);
   useEffect(() => { setHasPending(pendingCount > 0); }, [pendingCount]);
 
   const { apiOrigin = 'http://localhost:3001' } = getConfig();
 
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
   const apiMethod = async (method, url, data) => {
     try {
       setPendingCount(c => c + 1);
 
-      const token = await getAccessTokenSilently();
+      let maybeBearerToken = {};
+      if (isAuthenticated) {
+        const token = await getAccessTokenSilently();
+        maybeBearerToken = { Authorization: `Bearer ${token}` };
+      }
 
       const maybeDataHeader = data ? { 'Content-Type': 'application/json;charset=UTF-8' } : {};
       const maybeData = data ? { body: JSON.stringify(data) } : {};
       const response = await fetch(`${apiOrigin}${url}`, {
         method: method,
         headers: {
-          Authorization: `Bearer ${token}`,
+          ...maybeBearerToken,
           ...maybeDataHeader,
         },
         ...maybeData,

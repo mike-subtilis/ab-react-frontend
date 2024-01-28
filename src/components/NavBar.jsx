@@ -2,9 +2,10 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { Button, HStack, IconButton, Image, Link, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { Link as ReactRouterLink } from 'react-router-dom';
+import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
+  const navigate = useNavigate();
   // const [isOpen, setIsOpen] = useState(false);
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
@@ -41,18 +42,12 @@ const NavBar = () => {
             <FontAwesomeIcon icon='chevron-down' />
           </MenuButton>
 
-          <MenuList>
-            <MenuItem>
-              <Link to='/profile' as={ReactRouterLink} style={{ color: 'initial' }}>Profile</Link>
+          <MenuList style={{ color: 'initial' }}>
+            <MenuItem onClick={() => navigate('/profile')}>
+              <FontAwesomeIcon icon='user' sx={{ m: 0 }} />&nbsp;Profile
             </MenuItem>
-            <MenuItem>
-              <Button
-                id='logout-button'
-                variant='link'
-                onClick={() => logoutWithRedirect()}
-                sx={{ minWidth: 0 }}>
-                <FontAwesomeIcon icon='power-off' sx={{ color: 'white', m: 0 }} />&nbsp;Log out
-              </Button>
+            <MenuItem onClick={() => logoutWithRedirect()}>
+              <FontAwesomeIcon icon='power-off' sx={{ m: 0 }} />&nbsp;Log out
             </MenuItem>
           </MenuList>
         </Menu>        

@@ -25,6 +25,7 @@ const NavBar = () => {
       {!isAuthenticated && <Button
         id='login-button'
         variant='link'
+        sx={{ color: 'white' }}
         onClick={() => loginWithRedirect()}>
         Log in
       </Button>}

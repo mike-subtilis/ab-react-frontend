@@ -6,12 +6,14 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer.jsx';
 import NavBar from './components/NavBar.jsx';
 import Spinner from './components/common/Spinner.jsx';
+import initFontAwesome from './utils/initFontAwesome';
+
 import AboutPage from './views/AboutPage.jsx';
+import AnswersPage from './views/AnswersPage.jsx';
 import HomePage from './views/HomePage.jsx';
 import ProfilePage from './views/ProfilePage.jsx';
 import QuestionPage from './views/QuestionPage.jsx';
 import QuestionsPage from './views/QuestionsPage.jsx';
-import initFontAwesome from './utils/initFontAwesome';
 
 // styles
 import "./App.css";
@@ -40,6 +42,7 @@ const App = () => {
               <Route path='/' exact element={<HomePage />} />
               <Route path='/questions' exact element={<QuestionsPage />} />              
               <Route path='/questions/:questionId' element={<QuestionPage />} />              
+              <Route path='/answers' exact element={<AnswersPage />} />              
               <Route path='/profile' exact element={<ProfilePage />} />
               <Route path='/about' exact element={<AboutPage />} />
             </Routes>

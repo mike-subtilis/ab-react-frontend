@@ -15,7 +15,7 @@ const NavBar = () => {
   return <nav style={{ backgroundColor: '#ff4000', color: 'white' }}>
     <HStack align='center' gap={4} sx={{ pl: 2, pr: 2 }}>
       <Link to='/' as={ReactRouterLink}>
-        <Image src='/favicon.png' boxSize='32px' alt='AnswerBrawl logo' />
+        <Image src='/favicon.png' boxSize='40px' alt='AnswerBrawl logo' />
       </Link>
       <Link to='/questions' as={ReactRouterLink}>Questions</Link>
       <Link to='/answers' as={ReactRouterLink}>Answers</Link>

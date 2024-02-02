@@ -9,8 +9,7 @@ const NavBar = () => {
   // const [isOpen, setIsOpen] = useState(false);
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
-  const logoutWithRedirect = () =>
-    logout({ logoutParams: { returnTo: window.location.origin } });
+  const logoutWithRedirect = () => logout({ logoutParams: { returnTo: window.location.origin } });
 
   return <nav style={{ backgroundColor: '#ff4000', color: 'white' }}>
     <HStack align='center' gap={4} sx={{ pl: 2, pr: 2 }}>
@@ -50,7 +49,7 @@ const NavBar = () => {
               <FontAwesomeIcon icon='power-off' sx={{ m: 0 }} />&nbsp;Log out
             </MenuItem>
           </MenuList>
-        </Menu>        
+        </Menu>
       </>}
     </HStack>
   </nav>;

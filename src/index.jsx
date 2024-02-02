@@ -2,8 +2,8 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import App from './App';
-import { getConfig } from './config';
+import App from './App.jsx';
+import getConfig from './config';
 import ErrorBoundary from './components/common/ErrorBoundary.jsx';
 
 // Please see https://auth0.github.io/auth0-react/interfaces/Auth0ProviderOptions.html

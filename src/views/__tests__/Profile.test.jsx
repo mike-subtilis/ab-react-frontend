@@ -1,7 +1,7 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import React from 'react';
 import { render } from '@testing-library/react';
 import { ProfilePage } from '../ProfilePage.jsx';
-import { useAuth0 } from '@auth0/auth0-react';
 
 jest.mock('@auth0/auth0-react');
 

@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Card, CardBody, CardHeader, Heading, HStack, Text, VStack, 
-} from '@chakra-ui/react';
+import { Card, CardBody, CardHeader, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const HomePage = () => {
@@ -10,7 +8,7 @@ const HomePage = () => {
       Welcome to AnswerBrawl
     </Heading>
 
-    <Text>Things you can (or can't yet but someday) do...</Text>
+    <Text>Things you can (or can&apos;t yet but someday) do...</Text>
 
     <HStack>
       <Card>
@@ -47,7 +45,7 @@ const HomePage = () => {
         </CardHeader>
         <CardBody>
           You can ask a new question, supply it with a ton of potential answers, and then begin voting
-          on those questions. You can choose to make the question public or private. You'll
+          on those questions. You can choose to make the question public or private. You&apos;ll
           need to be signed up and logged in to ask a new question.
           (Currently you can ask a new question without answers if you sign up)
         </CardBody>

@@ -1,5 +1,6 @@
-import React from 'react';
 import { Box, Heading, LinkBox, LinkOverlay, Text, HStack, VStack } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import Tag from './Tag.jsx';
 import { formatDateTimeFriendly } from '../../utils/dateUtils';
@@ -36,5 +37,7 @@ const QuestionCompactView = ({ question, ...others }) => {
     </HStack>
   </Box>;
 };
+
+QuestionCompactView.propTypes = { question: PropTypes.object };
 
 export default QuestionCompactView;

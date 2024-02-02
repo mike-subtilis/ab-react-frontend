@@ -1,8 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import QuestionCompactView from './QuestionCompactView.jsx';
 import Spinner from '../common/Spinner.jsx';
-import { useApiConnection } from '../../utils/apiConnection.js';
+import useApiConnection from '../../utils/apiConnection.js';
 
 export const QuestionsList = ({ onError }) => {
   const { apiGet, hasPending } = useApiConnection();
@@ -23,5 +24,7 @@ export const QuestionsList = ({ onError }) => {
     {questions.map(q => <QuestionCompactView question={q} key={q.id} />)}
   </>;
 };
+
+QuestionsList.propTypes = { onError: PropTypes.func };
 
 export default QuestionsList;

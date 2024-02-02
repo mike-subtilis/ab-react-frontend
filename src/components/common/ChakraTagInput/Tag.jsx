@@ -1,9 +1,10 @@
 /* FROM: https://codesandbox.io/p/sandbox/chakra-tag-input-d04s0 */
 
-import React, { useCallback } from 'react';
 import { Tag, TagLabel, TagCloseButton } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
+import React, { useCallback } from 'react';
 
-export default function ChakraTagInputTag({
+const ChakraTagInputTag = ({
   children,
   onRemove,
 
@@ -11,19 +12,29 @@ export default function ChakraTagInputTag({
   tagCloseButtonProps,
 
   ...props
-}) {
-  const onTagCloseButtonClick = tagCloseButtonProps?.onClick
+}) => {
+  const onTagCloseButtonClick = tagCloseButtonProps?.onClick;
   const handleClickTagCloseButton = useCallback(
     (event) => {
-      onTagCloseButtonClick?.(event)
-      if (event.isDefaultPrevented()) return
+      onTagCloseButtonClick?.(event);
+      if (event.isDefaultPrevented()) return;
 
-      onRemove?.(event)
+      onRemove?.(event);
     },
-    [onRemove, onTagCloseButtonClick]
-  )
+    [onRemove, onTagCloseButtonClick],
+  );
+
   return <Tag {...props}>
     <TagLabel {...tagLabelProps}>{children}</TagLabel>
     <TagCloseButton {...tagCloseButtonProps} onClick={handleClickTagCloseButton} />
   </Tag>;
 };
+
+ChakraTagInputTag.propTypes = {
+  children: PropTypes.any,
+  onRemove: PropTypes.func,
+  tagLabelProps: PropTypes.object,
+  tagCloseButtonProps: PropTypes.object,
+};
+
+export default ChakraTagInputTag;

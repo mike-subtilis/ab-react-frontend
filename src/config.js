@@ -1,4 +1,4 @@
-export function getConfig() {
+export default function getConfig() {
   const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
   return {
     domain: process.env.REACT_APP_AUTH0_DOMAIN,

@@ -1,6 +1,6 @@
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBan, faChevronDown, faPowerOff, faStar, faUser, faVoteYea, faQuestion, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
-import { faCommentDots, faStar as farStar } from "@fortawesome/free-regular-svg-icons";
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faBan, faChevronDown, faPowerOff, faStar, faUser, faVoteYea, faQuestion, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { faCommentDots, faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 
 function initFontAwesome() {
   library.add(faBan);

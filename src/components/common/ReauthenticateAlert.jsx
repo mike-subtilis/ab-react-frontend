@@ -4,6 +4,7 @@ import {
   AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter,
   Button,
 } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
 
 const ReauthenticateAlert = ({ error, clearError }) => {
@@ -12,7 +13,7 @@ const ReauthenticateAlert = ({ error, clearError }) => {
     getAccessTokenWithPopup,
   } = useAuth0();
   const [reAuthError, setReAuthError] = useState(null);
-  const cancelRef = useRef()
+  const cancelRef = useRef();
 
   const handleConsent = async () => {
     try {
@@ -68,8 +69,8 @@ const ReauthenticateAlert = ({ error, clearError }) => {
         You need to&nbsp;
         <a
           href='#/'
-          class="alert-link"
-          onClick={(e) => handle(e, handleConsent)}
+          className='alert-link'
+          onClick={e => handle(e, handleConsent)}
         >
           consent to get access to users api
         </a>
@@ -82,8 +83,8 @@ const ReauthenticateAlert = ({ error, clearError }) => {
         You need to&nbsp;
         <a
           href='#/'
-          class="alert-link"
-          onClick={(e) => handle(e, handleLoginAgain)}
+          className='alert-link'
+          onClick={e => handle(e, handleLoginAgain)}
         >
           log in again
         </a>
@@ -91,5 +92,7 @@ const ReauthenticateAlert = ({ error, clearError }) => {
     </Alert>}
   </>;
 };
+
+ReauthenticateAlert.propTypes = { error: PropTypes.object, clearError: PropTypes.func };
 
 export default ReauthenticateAlert;

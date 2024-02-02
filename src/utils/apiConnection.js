@@ -1,8 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
-import { getConfig } from '../config';
+import getConfig from '../config';
 
-export const useApiConnection = () => {
+const useApiConnection = () => {
   const [pendingCount, setPendingCount] = useState(0);
   const [hasPending, setHasPending] = useState(false);
   useEffect(() => { setHasPending(pendingCount > 0); }, [pendingCount]);
@@ -24,7 +24,7 @@ export const useApiConnection = () => {
       const maybeDataHeader = data ? { 'Content-Type': 'application/json;charset=UTF-8' } : {};
       const maybeData = data ? { body: JSON.stringify(data) } : {};
       const response = await fetch(`${apiOrigin}${url}`, {
-        method: method,
+        method,
         headers: {
           ...maybeBearerToken,
           ...maybeDataHeader,
@@ -41,10 +41,10 @@ export const useApiConnection = () => {
     }
   };
 
-  const apiGet = (url) => apiMethod('GET', url);
+  const apiGet = url => apiMethod('GET', url);
   const apiPost = (url, data) => apiMethod('POST', url, data);
   const apiPut = (url, data) => apiMethod('PUT', url, data);
-  const apiDelete = (url) => apiMethod('DELETE', url);
+  const apiDelete = url => apiMethod('DELETE', url);
 
   return {
     apiGet,
@@ -54,3 +54,5 @@ export const useApiConnection = () => {
     hasPending,
   };
 };
+
+export default useApiConnection;

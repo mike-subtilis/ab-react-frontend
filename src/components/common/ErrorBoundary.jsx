@@ -1,13 +1,19 @@
+/* eslint-disable class-methods-use-this */
+import PropTypes from 'prop-types';
 import React from 'react';
 
-export default class ErrorBoundary extends React.Component {
-  state = { hasError: false };
-  static getDerivedStateFromError(error) {
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() { // also passed: error
     return { hasError: true };
   }
 
   componentDidCatch(error, info) {
-    console.log(error, info);
+    console.log(error, info); // eslint-disable-line no-console
   }
 
   render() {
@@ -21,3 +27,6 @@ export default class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
+
+ErrorBoundary.propTypes = { children: PropTypes.any };
+export default ErrorBoundary;

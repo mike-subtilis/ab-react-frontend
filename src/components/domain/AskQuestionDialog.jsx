@@ -2,10 +2,11 @@ import {
   AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter,
   Button, Divider, HStack, Input, Select, VStack,
 } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 import QuestionCompactView from './QuestionCompactView.jsx';
 import ChakraTagInput from '../common/ChakraTagInput/index.jsx';
-import { useApiConnection } from '../../utils/apiConnection.js';
+import useApiConnection from '../../utils/apiConnection';
 
 const defaultQuestion = { prefix: 'What is the', text: '', tags: [] };
 
@@ -17,7 +18,7 @@ const AskQuestionDialog = ({ isOpen, onClose }) => {
   const { apiPost } = useApiConnection();
 
   useEffect(() => {
-    setQuestion(q => ({ ...q, text: `${questionTextAdjective} ${questionTextNoun}`}));
+    setQuestion(q => ({ ...q, text: `${questionTextAdjective} ${questionTextNoun}` }));
   }, [questionTextAdjective, questionTextNoun]);
 
   return <AlertDialog
@@ -83,5 +84,7 @@ const AskQuestionDialog = ({ isOpen, onClose }) => {
     </AlertDialogOverlay>
   </AlertDialog>;
 };
+
+AskQuestionDialog.propTypes = { isOpen: PropTypes.bool, onClose: PropTypes.func };
 
 export default AskQuestionDialog;

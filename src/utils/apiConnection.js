@@ -1,5 +1,5 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
+import { useAuthentication } from '../components/auth/AuthenticationProvider.jsx';
 import getConfig from '../config';
 
 const useApiConnection = () => {
@@ -9,7 +9,7 @@ const useApiConnection = () => {
 
   const { apiOrigin = 'http://localhost:3001' } = getConfig();
 
-  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated } = useAuthentication();
 
   const apiMethod = async (method, url, data) => {
     try {
@@ -21,9 +21,10 @@ const useApiConnection = () => {
         maybeBearerToken = { Authorization: `Bearer ${token}` };
       }
 
+      const apiPrefix = isAuthenticated ? '/api' : '/api/public';
       const maybeDataHeader = data ? { 'Content-Type': 'application/json;charset=UTF-8' } : {};
       const maybeData = data ? { body: JSON.stringify(data) } : {};
-      const response = await fetch(`${apiOrigin}${url}`, {
+      const response = await fetch(`${apiOrigin}${apiPrefix}${url}`, {
         method,
         headers: {
           ...maybeBearerToken,

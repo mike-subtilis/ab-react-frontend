@@ -3,15 +3,15 @@ import React, { useState } from 'react';
 import {
   Button, Grid, HStack, VStack,
 } from '@chakra-ui/react';
-import { useAuth0 } from '@auth0/auth0-react';
 import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
 import QuestionsList from '../components/domain/QuestionsList.jsx';
 import AskQuestionDialog from '../components/domain/AskQuestionDialog.jsx';
+import { useAuthentication } from '../components/auth/AuthenticationProvider.jsx';
 
 const QuestionsPage = () => {
   const [error, setError] = useState(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated } = useAuthentication();
 
   return <VStack align='stretch'>
     <ReauthenticateAlert error={error} clearError={() => setError(null)} />

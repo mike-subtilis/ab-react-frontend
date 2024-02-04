@@ -1,4 +1,3 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import {
   Alert, AlertIcon, AlertDescription,
   AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter,
@@ -6,12 +5,10 @@ import {
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
+import { useAuthentication } from '../auth/AuthenticationProvider.jsx';
 
 const ReauthenticateAlert = ({ error, clearError }) => {
-  const {
-    loginWithPopup,
-    getAccessTokenWithPopup,
-  } = useAuth0();
+  const { loginWithPopup, getAccessTokenWithPopup } = useAuthentication();
   const [reAuthError, setReAuthError] = useState(null);
   const cancelRef = useRef();
 

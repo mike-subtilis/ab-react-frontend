@@ -1,13 +1,15 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import { Button, HStack, IconButton, Image, Link, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
+import { useAuthentication } from './auth/AuthenticationProvider.jsx';
+import { useUserContext } from './auth/UserProvider.jsx';
 
 const NavBar = () => {
   const navigate = useNavigate();
   // const [isOpen, setIsOpen] = useState(false);
-  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, logout } = useAuthentication();
+  const { user } = useUserContext();
 
   const logoutWithRedirect = () => logout({ logoutParams: { returnTo: window.location.origin } });
 
@@ -31,7 +33,7 @@ const NavBar = () => {
       </Button>}
 
       {isAuthenticated && <>
-        <span>Welcome, <b>{user.nickname || user.name || user.email}</b></span>
+        <span>Welcome, <b>{user?.name}</b></span>
 
         <Menu>
           <MenuButton

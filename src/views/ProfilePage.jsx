@@ -1,10 +1,9 @@
-import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import React from 'react';
 import { Avatar, Heading, HStack, Text, VStack } from '@chakra-ui/react';
-import Spinner from '../components/common/Spinner.jsx';
+import { useUserContext } from '../components/auth/UserProvider.jsx';
 
 export const ProfilePage = () => {
-  const { user } = useAuth0();
+  const { user } = useUserContext();
 
   return <VStack align='flex-start' sx={{ p: 2 }}>
     <HStack align='center'>
@@ -14,9 +13,7 @@ export const ProfilePage = () => {
         <Text>{user.email}</Text>
       </VStack>
     </HStack>
-  </VStack>
+  </VStack>;
 };
 
-export default withAuthenticationRequired(ProfilePage, {
-  onRedirecting: () => <Spinner />,
-});
+export default ProfilePage;

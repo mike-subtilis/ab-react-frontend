@@ -1,11 +1,11 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import { ChakraProvider, Container } from '@chakra-ui/react';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import AuthenticationProvider from './components/auth/AuthenticationProvider.jsx';
+
 import Footer from './components/Footer.jsx';
 import NavBar from './components/NavBar.jsx';
-import Spinner from './components/common/Spinner.jsx';
 import initFontAwesome from './utils/initFontAwesome';
 
 import AboutPage from './views/AboutPage.jsx';
@@ -22,20 +22,10 @@ import './App.css';
 initFontAwesome();
 
 const App = () => {
-  const { isLoading, error } = useAuth0();
-
-  if (error) {
-    return <div>Oops... {error.message}</div>;
-  }
-
-  if (isLoading) {
-    return <Spinner />;
-  }
-
-  return (
-    <BrowserRouter>
-      <div id="app" className="d-flex flex-column h-100">
-        <ChakraProvider>
+  return <BrowserRouter>
+    <div id="app" className="d-flex flex-column h-100">
+      <ChakraProvider>
+        <AuthenticationProvider>
           <NavBar />
           <Container maxW='100%' sx={{ p: 2 }} style={{ flexGrow: 1 }}>
             <Routes>
@@ -48,10 +38,10 @@ const App = () => {
             </Routes>
           </Container>
           <Footer />
-        </ChakraProvider>
-      </div>
-    </BrowserRouter>
-  );
+        </AuthenticationProvider>
+      </ChakraProvider>
+    </div>
+  </BrowserRouter>;
 };
 
 export default App;

@@ -1,4 +1,3 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import AnswerCompactView from './AnswerCompactView.jsx';
@@ -8,11 +7,10 @@ import useApiConnection from '../../utils/apiConnection';
 export const AnswersList = ({ onError }) => {
   const { apiGet, hasPending } = useApiConnection();
   const [answers, setAnswers] = useState([]);
-  const { isAuthenticated } = useAuth0();
 
   useEffect(() => {
     onError(null);
-    (isAuthenticated ? apiGet('/api/answers/') : apiGet('/api/public/answers/'))
+    apiGet('/answers')
       .then(responseData => setAnswers(responseData || []))
       .catch(e => onError(e.error));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps

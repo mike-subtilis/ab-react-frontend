@@ -1,4 +1,3 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import QuestionCompactView from './QuestionCompactView.jsx';
@@ -8,12 +7,11 @@ import useApiConnection from '../../utils/apiConnection.js';
 export const QuestionsList = ({ onError }) => {
   const { apiGet, hasPending } = useApiConnection();
   const [questions, setQuestions] = useState([]);
-  const { isAuthenticated } = useAuth0();
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     onError(null);
-    (isAuthenticated ? apiGet('/api/questions/') : apiGet('/api/public/questions/'))
+    apiGet('/questions')
       .then(responseData => setQuestions(responseData || []))
       .catch(e => onError(e.error));
   }, []);

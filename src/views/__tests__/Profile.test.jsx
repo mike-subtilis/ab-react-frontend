@@ -1,14 +1,13 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import React from 'react';
 import { render } from '@testing-library/react';
 import { ProfilePage } from '../ProfilePage.jsx';
+import { useUserContext } from '../../components/auth/UserProvider.jsx';
 
-jest.mock('@auth0/auth0-react');
+jest.mock('../../components/auth/UserProvider.jsx');
 
 describe('The profile component', () => {
   beforeEach(() => {
-    useAuth0.mockReturnValue({
-      loading: false,
+    useUserContext.mockReturnValue({
       user: {
         name: 'Test user',
         email: 'test@user.com',

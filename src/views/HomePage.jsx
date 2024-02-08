@@ -7,7 +7,11 @@ const HomePage = () => {
       Welcome to AnswerBrawl
     </Heading>
 
-    <Text>Still need to decide what to put here. In the mean time, feel free to sign up and log in and ask questions (no answers yet :-()).</Text>
+    <Text>
+      Still need to decide what to put here.
+      In the mean time, feel free to sign up and log in and ask questions (but no answers yet).
+      Or check out the About Page with recent updates from github.
+    </Text>
   </VStack>;
 };
 

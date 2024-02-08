@@ -1,16 +1,11 @@
 import React from 'react';
-import { Card, CardBody, CardHeader, Heading, HStack, Text, VStack } from '@chakra-ui/react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Card, CardBody, CardHeader, Divider, Heading, SimpleGrid, VStack } from '@chakra-ui/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import GithubCommitFeed from '../components/domain/GithubCommitFeed.jsx';
 
 const HomePage = () => {
-  return <VStack gap={2} align='flex-start'>
-    <Heading as='h1' size='3xl' noOfLines={1}>
-      Welcome to AnswerBrawl
-    </Heading>
-
-    <Text>Things you can (or can&apos;t yet but someday) do...</Text>
-
-    <HStack>
+  return <VStack gap={2} align='flex-start' divider={<Divider />}>
+    <SimpleGrid columns={3} spacing={2}>
       <Card>
         <CardHeader>
           <Heading size='lg'>
@@ -51,7 +46,9 @@ const HomePage = () => {
         </CardBody>
       </Card>
 
-    </HStack>
+    </SimpleGrid>
+
+    <GithubCommitFeed />
   </VStack>;
 };
 

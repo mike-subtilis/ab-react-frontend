@@ -32,6 +32,7 @@ const useApiConnection = () => {
         },
         ...maybeData,
       });
+
       const responseData = await response.json();
 
       setPendingCount(c => (c > 0 ? c - 1 : 0));

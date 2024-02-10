@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardBody, CardHeader, Divider, Heading, SimpleGrid, VStack } from '@chakra-ui/react';
+import { Box, Card, CardBody, CardHeader, Divider, Heading, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import GithubCommitFeed from '../components/domain/GithubCommitFeed.jsx';
 
@@ -48,7 +48,38 @@ const HomePage = () => {
 
     </SimpleGrid>
 
-    <GithubCommitFeed />
+    <SimpleGrid columns={2} spacing={10}>
+      <GithubCommitFeed />
+
+      <VStack alignItems='flex-start'>
+        <Heading size='lg'>Planned Updates</Heading>
+        <Box>
+          <Heading size='sm' sx={{ mb: 0 }}>Frontend</Heading>
+          <Text>Edit your own user name</Text>
+        </Box>
+
+        <Box>
+          <Heading size='sm' sx={{ mb: 0 }}>Frontend</Heading>
+          <Text>Edit your own questions</Text>
+        </Box>
+
+        <Box>
+          <Heading size='sm' sx={{ mb: 0 }}>API / Frontend</Heading>
+          <Text>Add answers</Text>
+        </Box>
+
+        <Box>
+          <Heading size='sm' sx={{ mb: 0 }}>API</Heading>
+          <Text>Backend logging</Text>
+        </Box>
+
+        <Box>
+          <Heading size='sm' sx={{ mb: 0 }}>API / Frontend</Heading>
+          <Text>Voting on answers</Text>
+        </Box>
+
+      </VStack>
+    </SimpleGrid>
   </VStack>;
 };
 

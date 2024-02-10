@@ -39,6 +39,7 @@ const NavBar = () => {
           <MenuButton
             as={IconButton}
             variant='link'
+            isRound
             sx={{ color: 'white', minWidth: 0 }}>
             <FontAwesomeIcon icon='chevron-down' />
           </MenuButton>

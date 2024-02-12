@@ -15,6 +15,8 @@ export const UserProvider = ({ isAuthenticated, children }) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [requestRefreshState, requestRefresh] = useReducer(x => x + 1, 0);
 
+  const [requestRefreshState, requestRefresh] = useReducer(x => x + 1, 0);
+
   useEffect(() => {
     if (isAuthenticated) {
       setIsRefreshing(true);

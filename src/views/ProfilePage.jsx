@@ -84,6 +84,7 @@ export const ProfilePage = () => {
             sx={{ position: 'absolute', width: '100%', height: '100%', opacity: 0.5, borderRadius: 10 }} />}
 
         </HStack>
+
         <Text>{user?.email}</Text>
       </VStack>
     </HStack>

@@ -12,18 +12,24 @@ export const useUserContext = () => {
 export const UserProvider = ({ isAuthenticated, children }) => {
   const { apiGet } = useApiConnection();
   const [user, setUser] = useState(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [requestRefreshState, requestRefresh] = useReducer(x => x + 1, 0);
 
   const [requestRefreshState, requestRefresh] = useReducer(x => x + 1, 0);
 
   useEffect(() => {
     if (isAuthenticated) {
+      setIsRefreshing(true);
       apiGet('/users/me')
-        .then((myUserData) => { setUser(myUserData); })
+        .then((myUserData) => {
+          setUser(myUserData);
+          setIsRefreshing(false);
+        })
         .catch(ex => { console.error(ex); });
     }
   }, [isAuthenticated, requestRefreshState]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return <UserContext.Provider value={{ user, requestRefresh }}>
+  return <UserContext.Provider value={{ user, requestRefresh, isRefreshing }}>
     {children}
   </UserContext.Provider>;
 };

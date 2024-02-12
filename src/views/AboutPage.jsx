@@ -55,11 +55,6 @@ const HomePage = () => {
         <Heading size='lg'>Planned Updates</Heading>
         <Box>
           <Heading size='sm' sx={{ mb: 0 }}>Frontend</Heading>
-          <Text>Edit your own user name</Text>
-        </Box>
-
-        <Box>
-          <Heading size='sm' sx={{ mb: 0 }}>Frontend</Heading>
           <Text>Edit your own questions</Text>
         </Box>
 

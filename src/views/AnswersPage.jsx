@@ -7,7 +7,7 @@ import AnswersList from '../components/domain/answer/AnswersList.jsx';
 const AnswersPage = () => {
   const [error, setError] = useState(null);
 
-  return <VStack align='stretch'>
+  return <VStack align='stretch' sx={{ p: 4 }}>
     <ReauthenticateAlert error={error} clearError={() => setError(null)} />
 
     <Grid gap={2} autoFlow='row' templateColumns='repeat(3, 1fr)'>

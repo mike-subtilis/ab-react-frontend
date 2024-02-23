@@ -2,7 +2,7 @@ import React from 'react';
 import { Heading, Text, VStack } from '@chakra-ui/react';
 
 const HomePage = () => {
-  return <VStack gap={2}>
+  return <VStack gap={2} sx={{ p: 4 }}>
     <Heading as='h1' size='3xl' noOfLines={1}>
       Welcome to AnswerBrawl
     </Heading>

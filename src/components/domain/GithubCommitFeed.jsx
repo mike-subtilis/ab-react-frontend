@@ -1,6 +1,7 @@
-import { Alert, AlertDescription, AlertIcon, Box, Heading, HStack, Text, VStack } from '@chakra-ui/react';
+import { Alert, AlertDescription, AlertIcon, Box, Heading, HStack, Link, Text, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { sortBy } from 'lodash';
+import Title from '../common/Title.jsx';
 import { formatDateTimeFriendly } from '../../utils/dateUtils';
 
 const maxCount = 10;
@@ -55,7 +56,16 @@ const GithubCommitFeed = () => {
   }
 
   return <VStack alignItems='flex-start'>
-    <Heading size='lg'>Recent Updates</Heading>
+    <Title
+      heading='Recent Updates'
+      subheading={<>
+        Real-time feeds from Github:&nbsp;
+        <Link href='https://github.com/mike-subtilis/ab-react-frontend' isExternal>Frontend</Link>
+        &nbsp;&&nbsp;
+        <Link href='https://github.com/mike-subtilis/ab-api' isExternal>Backend</Link>
+      </>}
+    />
+
     {combinedEntries.map(c => <Box key={c.date}>
       <HStack alignItems='baseline'>
         <Heading size='sm' sx={{ mb: 0 }}>{c.source}</Heading>

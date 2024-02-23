@@ -1,10 +1,21 @@
 import React from 'react';
-import { Box, Card, CardBody, CardHeader, Divider, Heading, SimpleGrid, Text, VStack } from '@chakra-ui/react';
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Divider,
+  Heading,
+  ListItem,
+  SimpleGrid,
+  UnorderedList,
+  VStack,
+} from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Title from '../components/common/Title.jsx';
 import GithubCommitFeed from '../components/domain/GithubCommitFeed.jsx';
 
 const HomePage = () => {
-  return <VStack gap={2} align='flex-start' divider={<Divider />}>
+  return <VStack gap={2} align='flex-start' divider={<Divider />} sx={{ p: 4 }}>
     <SimpleGrid columns={3} spacing={2}>
       <Card>
         <CardHeader>
@@ -51,28 +62,37 @@ const HomePage = () => {
     <SimpleGrid columns={2} spacing={10}>
       <GithubCommitFeed />
 
-      <VStack alignItems='flex-start'>
-        <Heading size='lg'>Planned Updates</Heading>
-        <Box>
-          <Heading size='sm' sx={{ mb: 0 }}>Frontend</Heading>
-          <Text>Edit your own questions</Text>
-        </Box>
+      <VStack alignItems='flex-start' gap={4}>
+        <VStack alignItems='flex-start'>
+          <Title
+            heading='Planned Updates'
+            subheading='Short list of things that I want / need to do for this project'
+          />
+          <UnorderedList>
+            <ListItem>Add answers</ListItem>
+            <ListItem>Search questions by tag</ListItem>
+            <ListItem>Private / Public / Public-Unlisted questions</ListItem>
+            <ListItem>Delete questions?</ListItem>
+            <ListItem>Voting on potential answers</ListItem>
+            <ListItem>Backend: logging</ListItem>
+            <ListItem>Hosting: figure out www site prefix</ListItem>
+          </UnorderedList>
+        </VStack>
 
-        <Box>
-          <Heading size='sm' sx={{ mb: 0 }}>API / Frontend</Heading>
-          <Text>Add answers</Text>
-        </Box>
-
-        <Box>
-          <Heading size='sm' sx={{ mb: 0 }}>API</Heading>
-          <Text>Backend logging</Text>
-        </Box>
-
-        <Box>
-          <Heading size='sm' sx={{ mb: 0 }}>API / Frontend</Heading>
-          <Text>Voting on answers</Text>
-        </Box>
-
+        <VStack alignItems='flex-start'>
+          <Title
+            heading='Tech Stack'
+            subheading='Brief summary of the tech-stack for answerbrawl'
+          />
+          <UnorderedList>
+            <ListItem>Frontend: React / Chakra-UI / js</ListItem>
+            <ListItem>Backend: Node.js / express</ListItem>
+            <ListItem>Authentication: Auth0</ListItem>
+            <ListItem>DB: Azure Cosmos NoSQL</ListItem>
+            <ListItem>Hosting: Azure Web App, Namecheap DNS</ListItem>
+          </UnorderedList>
+        </VStack>
+      
       </VStack>
     </SimpleGrid>
   </VStack>;

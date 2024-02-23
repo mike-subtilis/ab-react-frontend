@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import QuestionCompactView from './QuestionCompactView.jsx';
-import Spinner from '../common/Spinner.jsx';
-import useApiConnection from '../../utils/apiConnection.js';
+import Spinner from '../../common/Spinner.jsx';
+import useApiConnection from '../../../utils/apiConnection.js';
 
 export const QuestionsList = ({ onError }) => {
   const { apiGet, hasPending } = useApiConnection();

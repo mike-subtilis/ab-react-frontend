@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Grid, VStack } from '@chakra-ui/react';
 import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
-import AnswersList from '../components/domain/AnswersList.jsx';
+import AnswersList from '../components/domain/answer/AnswersList.jsx';
 
 const AnswersPage = () => {
   const [error, setError] = useState(null);

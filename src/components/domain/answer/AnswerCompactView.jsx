@@ -1,7 +1,7 @@
 import { Box, Text, HStack, VStack } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Tag from './Tag.jsx';
+import Tag from '../Tag.jsx';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const AnswerCompactView = ({ answer, ...others }) => {

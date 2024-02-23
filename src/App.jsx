@@ -27,7 +27,7 @@ const App = () => {
       <ChakraProvider>
         <AuthenticationProvider>
           <NavBar />
-          <Container maxW='100%' sx={{ p: 2 }} style={{ flexGrow: 1 }}>
+          <Container maxW='100%' style={{ flexGrow: 1 }} sx={{ p: 0 }}>
             <Routes>
               <Route path='/' exact element={<HomePage />} />
               <Route path='/questions' exact element={<QuestionsPage />} />

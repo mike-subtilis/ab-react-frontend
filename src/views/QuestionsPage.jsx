@@ -4,8 +4,8 @@ import {
   Button, Grid, HStack, VStack,
 } from '@chakra-ui/react';
 import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
-import QuestionsList from '../components/domain/QuestionsList.jsx';
-import AskQuestionDialog from '../components/domain/AskQuestionDialog.jsx';
+import QuestionsList from '../components/domain/question/QuestionsList.jsx';
+import AskQuestionDialog from '../components/domain/question/QuestionAskDialog.jsx';
 import { useAuthentication } from '../components/auth/AuthenticationProvider.jsx';
 
 const QuestionsPage = () => {
@@ -27,7 +27,7 @@ const QuestionsPage = () => {
       </HStack>
     </>}
 
-    <Grid gap={2} autoFlow='row' templateColumns='repeat(3, 1fr)'>
+    <Grid gap={2} autoFlow='row' templateColumns='repeat(3, 1fr)' sx={{ p: 2 }}>
       <QuestionsList onError={e => setError(e)} />
     </Grid>
   </VStack>;

@@ -1,7 +1,7 @@
 import { HStack, Input, Select, VStack } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import ChakraTagInput from '../../common/ChakraTagInput/index.jsx';
+import TagInput from '../../common/ChakraTagInput/index.jsx';
 
 const defaultQuestion = {
   prefix: 'What is the',
@@ -37,11 +37,11 @@ const QuestionEditor = ({ question, onChange }) => {
         value={localQuestion.subject}
         onChange={e => setLocalQuestion(q => ({ ...q, subject: e.target.value }))} />
     </HStack>
-    <ChakraTagInput
+    <TagInput
       placeholder='Tags (e.g. enter a keyword and press Enter)'
       tags={localQuestion.tags}
       onTagsChange={(e, t) => setLocalQuestion(q => ({ ...q, tags: t }))}
-      tagProps={{ size: 'sm', borderRadius: 'full', colorScheme: 'red', variant: 'solid' }}/>
+      tagProps={{ size: 'sm', borderRadius: 'full', colorScheme: 'red', variant: 'solid' }} />
   </VStack>;
 };
 

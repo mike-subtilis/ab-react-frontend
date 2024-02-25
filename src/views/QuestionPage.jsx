@@ -1,10 +1,16 @@
-import { VStack } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import {
+  Button, Divider,
+  Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay,
+  Heading, VStack,
+} from '@chakra-ui/react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
 import Spinner from '../components/common/Spinner.jsx';
 import Toolbar from '../components/common/Toolbar.jsx';
 import ToolbarButton from '../components/common/ToolbarButton.jsx';
+import AnswersList from '../components/domain/answer/AnswersList.jsx';
+import AnswerSearchableList from '../components/domain/answer/AnswerSearchableList.jsx';
 import QuestionEditor from '../components/domain/question/QuestionEditor.jsx';
 import QuestionFullView from '../components/domain/question/QuestionFullView.jsx';
 import useApiConnection from '../utils/apiConnection';
@@ -18,6 +24,8 @@ const QuestionPage = () => {
   const [canUpdate, setCanUpdate] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const answerTextFieldRef = useRef();
 
   useEffect(() => {
     setError(null);
@@ -65,6 +73,33 @@ const QuestionPage = () => {
       <ReauthenticateAlert error={error} clearError={() => setError(null)} />
       {!isEditing && <QuestionFullView question={question} />}
       {isEditing && <QuestionEditor question={question} onChange={q => setQuestion(q)} />}
+      <Divider />
+      <Heading size='lg'>Answers</Heading>
+      {isEditing && <Button size='sm' onClick={() => setIsOpen(true)}>Add Answers</Button>}
+      <AnswersList questionId={question?.id || 'n/a'} />
+      <Drawer
+        isOpen={isOpen}
+        placement='right'
+        initialFocusRef={answerTextFieldRef}
+        onClose={() => setIsOpen(false)}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Add Answers</DrawerHeader>
+
+          <DrawerBody>
+            <AnswerSearchableList textFieldRef={answerTextFieldRef} tags={question?.tags} />
+          </DrawerBody>
+
+          <DrawerFooter>
+            <Button variant='outline' mr={3} onClick={() => setIsOpen(false)}>
+              Cancel
+            </Button>
+            <Button colorScheme='green'>Save</Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </VStack>
   </VStack>;
 };

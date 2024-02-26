@@ -73,10 +73,13 @@ const QuestionPage = () => {
       <ReauthenticateAlert error={error} clearError={() => setError(null)} />
       {!isEditing && <QuestionFullView question={question} />}
       {isEditing && <QuestionEditor question={question} onChange={q => setQuestion(q)} />}
+
       <Divider />
+
       <Heading size='lg'>Answers</Heading>
       {isEditing && <Button size='sm' onClick={() => setIsOpen(true)}>Add Answers</Button>}
-      <AnswersList questionId={question?.id || 'n/a'} />
+      <AnswersList questionIdFilter={question?.id || 'n/a'} />
+
       <Drawer
         isOpen={isOpen}
         placement='right'

@@ -34,7 +34,7 @@ export const AnswersList = ({ questionIdFilter, tagFilter, textFilter, onError }
 };
 
 AnswersList.propTypes = {
-  questionIdFilter: PropTypes.arrayOf(PropTypes.string),
+  questionIdFilter: PropTypes.string,
   tagFilter: PropTypes.arrayOf(PropTypes.string),
   textFilter: PropTypes.string,
   onError: PropTypes.func,

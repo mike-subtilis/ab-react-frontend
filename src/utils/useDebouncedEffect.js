@@ -15,7 +15,7 @@ const useDebouncedEffect = (effect, triggers, timeout = 1000, setInDebounce = nu
     return () => {
       if (debounce.current) clearTimeout(debounce.current);
     };
-  }, triggers);
+  }, triggers); // eslint-disable-line react-hooks/exhaustive-deps
 };
 
 export default useDebouncedEffect;

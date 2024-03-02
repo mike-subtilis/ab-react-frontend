@@ -1,16 +1,14 @@
 import {
-  Button, Divider,
-  Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay,
-  Heading, VStack,
+  Button, Divider, Heading, HStack, Text, VStack, Wrap, WrapItem,
 } from '@chakra-ui/react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
 import Spinner from '../components/common/Spinner.jsx';
 import Toolbar from '../components/common/Toolbar.jsx';
 import ToolbarButton from '../components/common/ToolbarButton.jsx';
 import AnswersList from '../components/domain/answer/AnswersList.jsx';
-import AnswerSearchableList from '../components/domain/answer/AnswerSearchableList.jsx';
+import QuestionAddRemoveAnswersDialog from '../components/domain/question/QuestionAddRemoveAnswersDialog.jsx';
 import QuestionEditor from '../components/domain/question/QuestionEditor.jsx';
 import QuestionFullView from '../components/domain/question/QuestionFullView.jsx';
 import useApiConnection from '../utils/apiConnection';
@@ -21,11 +19,11 @@ const QuestionPage = () => {
 
   const { apiGet, apiPut, hasPending } = useApiConnection();
   const [question, setQuestion] = useState(null);
+  const [answerCount, setAnswerCount] = useState(0);
   const [canUpdate, setCanUpdate] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const answerTextFieldRef = useRef();
 
   useEffect(() => {
     setError(null);
@@ -38,11 +36,23 @@ const QuestionPage = () => {
       .catch(e => setError(e.error));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if (question) {
+      apiGet(`/answers/count?${new URLSearchParams({ questionId: question.id }).toString()}`)
+        .then(count => setAnswerCount(count))
+        .catch(e => setError(e.error));
+    } else {
+      setAnswerCount(0);
+    }
+  }, [question]); // eslint-disable-line react-hooks/exhaustive-deps
+
   if (hasPending) return <Spinner />;
 
   function saveQuestion() {
     setIsSaving(true);
-    apiPut(`/questions/${question.id}?etag=${question._etag}`, question)
+    apiPut(
+      `/questions/${question.id}?etag=${question._etag}`,
+      question)
       .then((updatedQuestion) => {
         setQuestion(updatedQuestion || null);
         setIsEditing(false);
@@ -66,7 +76,7 @@ const QuestionPage = () => {
         text='Save'
         colorScheme='green'
         disabled={isSaving}
-        onClick={() => saveQuestion(false)}
+        onClick={() => saveQuestion()}
       />}
     </Toolbar>
     <VStack alignItems='flex-start' sx={{ p: 4 }}>
@@ -76,33 +86,27 @@ const QuestionPage = () => {
 
       <Divider />
 
-      <Heading size='lg'>Answers</Heading>
-      {isEditing && <Button size='sm' onClick={() => setIsOpen(true)}>Add Answers</Button>}
-      <AnswersList questionIdFilter={question?.id || 'n/a'} />
+      <Heading size='lg'>
+        <HStack gap={2} alignItems='baseline'>
+          <span>{answerCount}</span>
+          <span>Answers</span>
+          <Button size='sm' onClick={() => setIsOpen(true)}>Add / Remove Answers</Button>
+        </HStack>
+      </Heading>
+      <Wrap spacing={10}>
+        <AnswersList
+          questionIdFilter={question?.id || '-no-question-'}
+          createView={a => <WrapItem key={a.id}><Text>{a.text}</Text></WrapItem>}
+          sort='text'
+        />
+      </Wrap>
 
-      <Drawer
+      <QuestionAddRemoveAnswersDialog
         isOpen={isOpen}
-        placement='right'
-        initialFocusRef={answerTextFieldRef}
         onClose={() => setIsOpen(false)}
-      >
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>Add Answers</DrawerHeader>
-
-          <DrawerBody>
-            <AnswerSearchableList textFieldRef={answerTextFieldRef} tags={question?.tags} />
-          </DrawerBody>
-
-          <DrawerFooter>
-            <Button variant='outline' mr={3} onClick={() => setIsOpen(false)}>
-              Cancel
-            </Button>
-            <Button colorScheme='green'>Save</Button>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+        question={question}
+        onQuestionSaved={q => setQuestion(q)}
+      />
     </VStack>
   </VStack>;
 };

@@ -69,7 +69,6 @@ const HomePage = () => {
             subheading='Short list of things that I want / need to do for this project'
           />
           <UnorderedList>
-            <ListItem>Add answers</ListItem>
             <ListItem>Search questions by tag</ListItem>
             <ListItem>Private / Public / Public-Unlisted questions</ListItem>
             <ListItem>Delete questions?</ListItem>

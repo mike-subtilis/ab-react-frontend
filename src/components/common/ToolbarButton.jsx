@@ -3,10 +3,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const ToolbarButton = ({ iconKey, text, ...others }) => {
+const ToolbarButton = ({ iconKey, text, isDisabled, isInProgress, ...others }) => {
+  let icon = iconKey;
+  let spinPulse = false;
+  if (isInProgress) {
+    icon = 'spinner';
+    spinPulse = true;
+  } 
   return <Button
+    isDisabled={isDisabled}
     size='sm'
-    leftIcon={iconKey && <FontAwesomeIcon icon={iconKey} />}
+    leftIcon={icon && <FontAwesomeIcon icon={icon} spinPulse={spinPulse} />}
     {...others}
   >
     {text}
@@ -16,6 +23,8 @@ const ToolbarButton = ({ iconKey, text, ...others }) => {
 ToolbarButton.propTypes = {
   iconKey: PropTypes.string,
   text: PropTypes.string.isRequired,
+  isDisabled: PropTypes.bool,
+  isInProgress: PropTypes.bool,
 };
 
 export default ToolbarButton;

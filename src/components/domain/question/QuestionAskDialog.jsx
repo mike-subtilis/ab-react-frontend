@@ -4,6 +4,7 @@ import {
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import QuestionEditor from './QuestionEditor.jsx';
 import QuestionCompactView from './QuestionCompactView.jsx';
 import useApiConnection from '../../../utils/apiConnection';
@@ -14,6 +15,7 @@ const AskQuestionDialog = ({ isOpen, onClose }) => {
   const cancelRef = useRef();
   const [question, setQuestion] = useState(defaultQuestion);
   const { apiPost } = useApiConnection();
+  const navigate = useNavigate();
 
   return <AlertDialog
     isOpen={isOpen}
@@ -39,9 +41,10 @@ const AskQuestionDialog = ({ isOpen, onClose }) => {
             <Button ref={cancelRef} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme='blue' onClick={() => {
-              apiPost('/api/questions', question);
+            <Button colorScheme='blue' onClick={async () => {
+              const addedQuestion = await apiPost('/questions', question);
               onClose();
+              navigate(`/questions/${addedQuestion.id}`);
             }}>
               Ask
             </Button>

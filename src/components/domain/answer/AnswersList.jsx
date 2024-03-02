@@ -5,7 +5,7 @@ import Spinner from '../../common/Spinner.jsx';
 import useApiConnection from '../../../utils/apiConnection';
 import useDebouncedEffect from '../../../utils/useDebouncedEffect.js';
 
-export const AnswersList = ({ questionIdFilter, tagFilter, textFilter, onError }) => {
+export const AnswersList = ({ questionIdFilter, tagFilter, textFilter, onError, sort, createView }) => {
   const [localError, setLocalError] = useState(null);
   const { apiGet, hasPending } = useApiConnection();
   const [answers, setAnswers] = useState([]);
@@ -16,11 +16,12 @@ export const AnswersList = ({ questionIdFilter, tagFilter, textFilter, onError }
       questionId: questionIdFilter,
       tags: tagFilter,
       text: textFilter,
+      sort,
     };
     apiGet(`/answers?${new URLSearchParams(filters).toString()}`)
       .then(responseData => setAnswers(responseData || []))
       .catch(e => (onError ? onError(e.error) : setLocalError(e.error)));
-  }, [questionIdFilter, tagFilter, textFilter]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [questionIdFilter, tagFilter, textFilter], 250); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (hasPending) return <Spinner />;
   if (answers.length === 0) return 'No answers found';
@@ -29,7 +30,7 @@ export const AnswersList = ({ questionIdFilter, tagFilter, textFilter, onError }
   }
 
   return <>
-    {answers.map(a => <AnswerCompactView answer={a} key={a.id} />)}
+    {answers.map(createView)}
   </>;
 };
 
@@ -38,12 +39,16 @@ AnswersList.propTypes = {
   tagFilter: PropTypes.arrayOf(PropTypes.string),
   textFilter: PropTypes.string,
   onError: PropTypes.func,
+  sort: PropTypes.string,
+  createView: PropTypes.func,
 };
 
 AnswersList.defaultProps = {
   questionIdFilter: '',
   tagFilter: [],
   textFilter: '',
+  sort: '',
+  createView: a => <AnswerCompactView answer={a} key={a.id} />,
 };
 
 export default AnswersList;

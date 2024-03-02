@@ -4,7 +4,7 @@ import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
 import Toolbar from '../components/common/Toolbar.jsx';
 import ToolbarButton from '../components/common/ToolbarButton.jsx';
 import QuestionsList from '../components/domain/question/QuestionsList.jsx';
-import AskQuestionDialog from '../components/domain/question/QuestionAskDialog.jsx';
+import QuestionAskDialog from '../components/domain/question/QuestionAskDialog.jsx';
 import { useAuthentication } from '../components/auth/AuthenticationProvider.jsx';
 
 const QuestionsPage = () => {
@@ -15,7 +15,7 @@ const QuestionsPage = () => {
   return <VStack align='stretch'>
     <ReauthenticateAlert error={error} clearError={() => setError(null)} />
     {isAuthenticated && <Toolbar>
-      <AskQuestionDialog
+      <QuestionAskDialog
         isOpen={isAddDialogOpen}
         onClose={() => setIsAddDialogOpen(false)}
       />

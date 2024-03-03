@@ -1,6 +1,7 @@
-import { Alert, AlertDescription, AlertIcon, Box, Heading, HStack, Link, Text, VStack } from '@chakra-ui/react';
+import { Box, Heading, HStack, Link, Text, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { sortBy } from 'lodash';
+import ErrorAlert from '../common/ErrorAlert.jsx';
 import Title from '../common/Title.jsx';
 import { formatDateTimeFriendly } from '../../utils/dateUtils';
 
@@ -47,12 +48,7 @@ const GithubCommitFeed = () => {
   }, [apiEntries, frontendEntries]);
 
   if (error) {
-    return <Alert status='error'>
-      <AlertIcon />
-      <AlertDescription>
-        {error.message}
-      </AlertDescription>
-    </Alert>;
+    return <ErrorAlert error={error} />;
   }
 
   return <VStack alignItems='flex-start'>

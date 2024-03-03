@@ -1,10 +1,14 @@
-import { VStack } from '@chakra-ui/react';
+import {
+  Button, Divider, Heading, HStack, Text, VStack, Wrap, WrapItem,
+} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
 import Spinner from '../components/common/Spinner.jsx';
 import Toolbar from '../components/common/Toolbar.jsx';
 import ToolbarButton from '../components/common/ToolbarButton.jsx';
+import AnswersList from '../components/domain/answer/AnswersList.jsx';
+import QuestionAddRemoveAnswersDialog from '../components/domain/question/QuestionAddRemoveAnswersDialog.jsx';
 import QuestionEditor from '../components/domain/question/QuestionEditor.jsx';
 import QuestionFullView from '../components/domain/question/QuestionFullView.jsx';
 import useApiConnection from '../utils/apiConnection';
@@ -15,9 +19,11 @@ const QuestionPage = () => {
 
   const { apiGet, apiPut, hasPending } = useApiConnection();
   const [question, setQuestion] = useState(null);
+  const [answerCount, setAnswerCount] = useState(0);
   const [canUpdate, setCanUpdate] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setError(null);
@@ -30,11 +36,23 @@ const QuestionPage = () => {
       .catch(e => setError(e.error));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if (question) {
+      apiGet(`/answers/count?${new URLSearchParams({ questionId: question.id }).toString()}`)
+        .then(count => setAnswerCount(count))
+        .catch(e => setError(e.error));
+    } else {
+      setAnswerCount(0);
+    }
+  }, [question]); // eslint-disable-line react-hooks/exhaustive-deps
+
   if (hasPending) return <Spinner />;
 
   function saveQuestion() {
     setIsSaving(true);
-    apiPut(`/questions/${question.id}?etag=${question._etag}`, question)
+    apiPut(
+      `/questions/${question.id}?etag=${question._etag}`,
+      question)
       .then((updatedQuestion) => {
         setQuestion(updatedQuestion || null);
         setIsEditing(false);
@@ -58,13 +76,37 @@ const QuestionPage = () => {
         text='Save'
         colorScheme='green'
         disabled={isSaving}
-        onClick={() => saveQuestion(false)}
+        onClick={() => saveQuestion()}
       />}
     </Toolbar>
     <VStack alignItems='flex-start' sx={{ p: 4 }}>
       <ReauthenticateAlert error={error} clearError={() => setError(null)} />
       {!isEditing && <QuestionFullView question={question} />}
       {isEditing && <QuestionEditor question={question} onChange={q => setQuestion(q)} />}
+
+      <Divider />
+
+      <Heading size='lg'>
+        <HStack gap={2} alignItems='baseline'>
+          <span>{answerCount}</span>
+          <span>Answers</span>
+          <Button size='sm' onClick={() => setIsOpen(true)}>Add / Remove Answers</Button>
+        </HStack>
+      </Heading>
+      <Wrap spacing={10}>
+        <AnswersList
+          questionIdFilter={question?.id || '-no-question-'}
+          createView={a => <WrapItem key={a.id}><Text>{a.text}</Text></WrapItem>}
+          sort='text'
+        />
+      </Wrap>
+
+      <QuestionAddRemoveAnswersDialog
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        question={question}
+        onQuestionSaved={q => setQuestion(q)}
+      />
     </VStack>
   </VStack>;
 };

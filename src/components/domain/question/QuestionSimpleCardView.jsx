@@ -1,8 +1,9 @@
-import { Box, LinkBox, LinkOverlay, HStack } from '@chakra-ui/react';
+import { LinkBox, LinkOverlay } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import QuestionCompactView from './QuestionCompactView.jsx';
+import { Box, HStack } from '../../common/layout/index.jsx';
 
 const QuestionSimpleCardView = ({ question, ...others }) => {
   /* 

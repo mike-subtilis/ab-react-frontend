@@ -1,5 +1,6 @@
 import React from 'react';
-import { Heading, Text, VStack } from '@chakra-ui/react';
+import { VStack } from '../components/common/layout/index.jsx'
+import { Heading, Text } from '../components/common/text/index.jsx';
 
 const HomePage = () => {
   return <VStack gap={2} sx={{ p: 4 }}>

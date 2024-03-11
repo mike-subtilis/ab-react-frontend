@@ -1,8 +1,10 @@
-import { Avatar, Collapse, Heading, HStack, Input, Progress, Text, VStack } from '@chakra-ui/react';
+import { Avatar, Collapse, Input, Progress } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useUserContext } from '../components/auth/UserProvider.jsx';
 import ButtonIcon from '../components/common/ButtonIcon.jsx';
+import { HStack, VStack } from '../components/common/layout/index.jsx';
+import { Heading, Text } from '../components/common/text/index.jsx';
 import useApiConnection from '../utils/apiConnection';
 
 export const ProfilePage = () => {

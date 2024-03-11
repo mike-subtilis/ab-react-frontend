@@ -1,7 +1,8 @@
-import { Heading, Text, HStack, VStack } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Tag from '../Tag.jsx';
+import { HStack, VStack } from '../../common/layout/index.jsx';
+import { Heading, Text } from '../../common/text/index.jsx';
 import { formatDateTimeFriendly } from '../../../utils/dateUtils';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

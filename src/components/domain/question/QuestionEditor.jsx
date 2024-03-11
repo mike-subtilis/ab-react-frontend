@@ -1,7 +1,8 @@
-import { HStack, Input, Select, VStack } from '@chakra-ui/react';
+import { Input, Select } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 import TagInput from '../../common/ChakraTagInput/index.jsx';
+import { HStack, VStack } from '../../common/layout/index.jsx';
 
 const defaultQuestion = {
   prefix: 'What is the',

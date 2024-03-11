@@ -1,9 +1,10 @@
-import { Checkbox, HStack, Input, Text, VStack } from '@chakra-ui/react';
+import { Checkbox, Input, Text } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import AnswerCompactView from './AnswerCompactView.jsx';
 import ButtonIcon from '../../common/ButtonIcon.jsx';
 import Spinner from '../../common/Spinner.jsx';
+import { HStack, VStack } from '../../common/layout/index.jsx';
 import arrayUtil from '../../../utils/arrayUtil.js';
 import useApiConnection from '../../../utils/apiConnection.js';
 import useDebouncedEffect from '../../../utils/useDebouncedEffect.js';

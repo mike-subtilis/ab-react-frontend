@@ -3,15 +3,12 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Divider,
-  Heading,
   ListItem,
-  SimpleGrid,
   UnorderedList,
-  VStack,
 } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Title from '../components/common/Title.jsx';
+import { Divider, SimpleGrid, VStack } from '../components/common/layout/index.jsx';
+import { Heading, Title } from '../components/common/text/index.jsx';
 import GithubCommitFeed from '../components/domain/GithubCommitFeed.jsx';
 
 const HomePage = () => {

@@ -1,10 +1,10 @@
-import { Box, Divider, HStack, VStack } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import QuestionCompactView from './QuestionCompactView.jsx';
 import QuestionCompactResults from './QuestionCompactResults.jsx';
-import ButtonIconTiny from '../../common/ButtonIconTiny.jsx';
+import { ButtonIconTiny } from '../../common/index.jsx';
+import { Box, Divider, HStack, VStack } from '../../common/layout/index.jsx';
 import BallotGenerator from '../ballot/BallotGenerator.jsx';
 
 // const { apiPut } = useApiConnection();
@@ -26,7 +26,7 @@ const QuestionExpandableCardView = ({ question, ...others }) => {
 
   return <Box boxShadow='base' rounded='md' bg='white' sx={{ ...others.sx, p: 4 }} {...others}>
     <HStack justify='space-between' alignItems='stretch' divider={<Divider orientation='vertical' height='auto' />}>
-      <VStack sx={{ flexGrow: 1 }} align='stretch' divider={<Divider />}>
+      <VStack sx={{ flexGrow: 1 }} align='stretch' divider={isExpanded && <Divider />}>
         <QuestionCompactView
           question={question}
           sx={!isExpanded && canExpand ? { cursor: 'pointer' } : {}}
@@ -39,7 +39,10 @@ const QuestionExpandableCardView = ({ question, ...others }) => {
         <VStack sx={{ flexGrow: 0, flexShrink: 1 }}>
           <ButtonIconTiny iconKey='edit' onClick={() => navigate(`/questions/${question.id}`)} />
         </VStack>
-        {isExpanded && <ButtonIconTiny iconKey='chevron-up' onClick={() => setIsExpanded(false)} />}
+        {canExpand && <ButtonIconTiny
+          iconKey={isExpanded ? 'caret-up' : 'caret-down'}
+          onClick={() => setIsExpanded(!isExpanded)}
+        />}
       </VStack>
     </HStack>
   </Box>;

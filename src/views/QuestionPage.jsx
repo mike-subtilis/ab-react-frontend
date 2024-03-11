@@ -1,12 +1,9 @@
-import {
-  Button, Divider, Heading, HStack, Text, VStack, Wrap, WrapItem,
-} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
-import Spinner from '../components/common/Spinner.jsx';
-import Toolbar from '../components/common/Toolbar.jsx';
-import ToolbarButton from '../components/common/ToolbarButton.jsx';
+import { Button, Toolbar, ToolbarButton, Spinner } from '../components/common/index.jsx';
+import { Divider, HStack, VStack, Wrap, WrapItem } from '../components/common/layout/index.jsx';
+import { Heading, Text } from '../components/common/text/index.jsx';
 import AnswersList from '../components/domain/answer/AnswersList.jsx';
 import QuestionAddRemoveAnswersDialog from '../components/domain/question/QuestionAddRemoveAnswersDialog.jsx';
 import QuestionEditor from '../components/domain/question/QuestionEditor.jsx';

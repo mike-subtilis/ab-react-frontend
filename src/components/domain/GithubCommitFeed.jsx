@@ -1,8 +1,9 @@
-import { Box, Heading, HStack, Link, Text, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { sortBy } from 'lodash';
 import ErrorAlert from '../common/ErrorAlert.jsx';
-import Title from '../common/Title.jsx';
+import Title from '../common/text/Title.jsx';
+import { Box, HStack, VStack } from '../common/layout/index.jsx';
+import { Heading, Link, Text } from '../common/text/index.jsx';
 import { formatDateTimeFriendly } from '../../utils/dateUtils';
 
 const maxCount = 10;

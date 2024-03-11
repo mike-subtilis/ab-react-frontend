@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import QuestionEditor from './QuestionEditor.jsx';
-import QuestionCompactView from './QuestionCompactView.jsx';
+import QuestionSimpleCardView from './QuestionSimpleCardView.jsx';
 import useApiConnection from '../../../utils/apiConnection';
 
 const defaultQuestion = { prefix: 'What is the', text: '', tags: [] };
@@ -33,7 +33,7 @@ const AskQuestionDialog = ({ isOpen, onClose }) => {
 
           <Divider />
 
-          <QuestionCompactView question={question} />
+          <QuestionSimpleCardView question={question} />
         </AlertDialogBody>
 
         <AlertDialogFooter>

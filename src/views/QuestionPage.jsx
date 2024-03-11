@@ -10,7 +10,7 @@ import ToolbarButton from '../components/common/ToolbarButton.jsx';
 import AnswersList from '../components/domain/answer/AnswersList.jsx';
 import QuestionAddRemoveAnswersDialog from '../components/domain/question/QuestionAddRemoveAnswersDialog.jsx';
 import QuestionEditor from '../components/domain/question/QuestionEditor.jsx';
-import QuestionFullView from '../components/domain/question/QuestionFullView.jsx';
+import QuestionCompactView from '../components/domain/question/QuestionCompactView.jsx';
 import useApiConnection from '../utils/apiConnection';
 
 const QuestionPage = () => {
@@ -81,7 +81,7 @@ const QuestionPage = () => {
     </Toolbar>
     <VStack alignItems='flex-start' sx={{ p: 4 }}>
       <ReauthenticateAlert error={error} clearError={() => setError(null)} />
-      {!isEditing && <QuestionFullView question={question} />}
+      {!isEditing && <QuestionCompactView question={question} />}
       {isEditing && <QuestionEditor question={question} onChange={q => setQuestion(q)} />}
 
       <Divider />

@@ -2,7 +2,7 @@ import { Checkbox, HStack, Input, Text, VStack } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import AnswerCompactView from './AnswerCompactView.jsx';
-import IconButton from '../../common/IconButton.jsx';
+import ButtonIcon from '../../common/ButtonIcon.jsx';
 import Spinner from '../../common/Spinner.jsx';
 import arrayUtil from '../../../utils/arrayUtil.js';
 import useApiConnection from '../../../utils/apiConnection.js';
@@ -78,7 +78,7 @@ const AnswerSearchableCheckList = ({ question, firstFieldRef, onChange }) => {
     />
 
     {!!answerText && <HStack gap={2}>
-      <IconButton
+      <ButtonIcon
         iconKey='plus'
         disabled={hasExactMatch({ text: answerText }, answers)}
         onClick={() => addNewAnswer({ text: answerText })}

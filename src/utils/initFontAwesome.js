@@ -1,6 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-  faBan, faCheck, faChevronDown, faEdit, faExclamationTriangle,
+  faBan, faCheck, faChevronDown, faChevronUp, faEdit, faExclamationTriangle,
   faPlus, faPowerOff, faQuestion, faSearch, faSpinner,
   faStar, faTimes, faUser, faVoteYea,
 } from '@fortawesome/free-solid-svg-icons';
@@ -10,6 +10,7 @@ function initFontAwesome() {
   library.add(faBan);
   library.add(faCheck);
   library.add(faChevronDown);
+  library.add(faChevronUp);
   library.add(faCommentDots);
   library.add(faEdit);
   library.add(faExclamationTriangle);

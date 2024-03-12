@@ -18,7 +18,7 @@ const QuestionAddRemoveAnswersDialog = ({ isOpen, onClose, question, onQuestionS
 
   function addAndRemoveAnswers() {
     apiPut(
-      `/questions/${question.id}/updateAnswers?etag=${question._etag}`,
+      `/questions/${question.id}/update-answers?etag=${question._etag}`,
       addedAndRemovedAnswers)
       .then((updatedQuestion) => {
         onQuestionSaved(updatedQuestion);

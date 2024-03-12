@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import AnswerCompactView from './AnswerCompactView.jsx';
+import AnswerSimpleCard from './AnswerSimpleCard.jsx';
 import Spinner from '../../common/Spinner.jsx';
 import useApiConnection from '../../../utils/apiConnection';
 import useDebouncedEffect from '../../../utils/useDebouncedEffect.js';
@@ -48,7 +48,7 @@ AnswersList.defaultProps = {
   tagFilter: [],
   textFilter: '',
   sort: '',
-  createView: a => <AnswerCompactView answer={a} key={a.id} />,
+  createView: a => <AnswerSimpleCard answer={a} key={a.id} />,
 };
 
 export default AnswersList;

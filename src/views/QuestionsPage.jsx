@@ -1,8 +1,8 @@
-import { SimpleGrid, VStack } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
 import Toolbar from '../components/common/Toolbar.jsx';
 import ToolbarButton from '../components/common/ToolbarButton.jsx';
+import { SimpleGrid, VStack } from '../components/common/layout/index.jsx';
 import QuestionsList from '../components/domain/question/QuestionsList.jsx';
 import QuestionAskDialog from '../components/domain/question/QuestionAskDialog.jsx';
 import { useAuthentication } from '../components/auth/AuthenticationProvider.jsx';

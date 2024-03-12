@@ -28,6 +28,7 @@
   "plugins": ["react", "react-hooks", "jest"],
   "rules": {
     //add customize rules here as per your project's needs
+    "react-hooks/exhaustive-deps": "off"
   },
   "settings": {
     "react": {

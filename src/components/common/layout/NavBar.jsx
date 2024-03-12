@@ -2,10 +2,10 @@ import { Button, IconButton, Image, Menu, MenuButton, MenuList, MenuItem } from 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
-import { useAuthentication } from './auth/AuthenticationProvider.jsx';
-import { useUserContext } from './auth/UserProvider.jsx';
-import { HStack } from '../components/common/layout/index.jsx';
-import { Link } from '../components/common/text/index.jsx';
+import { useAuthentication } from '../../auth/AuthenticationProvider.jsx';
+import { useUserContext } from '../../auth/UserProvider.jsx';
+import { HStack } from './index.jsx';
+import { Link } from '../text/index.jsx';
 
 const NavBar = () => {
   const navigate = useNavigate();

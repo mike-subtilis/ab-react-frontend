@@ -1,12 +1,12 @@
 import {
   AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter,
-  Button,
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import QuestionEditor from './QuestionEditor.jsx';
-import QuestionSimpleCardView from './QuestionSimpleCardView.jsx';
+import QuestionExpandableCardView from './QuestionExpandableCardView.jsx';
+import { Button } from '../../common/index.jsx';
 import { Divider, HStack } from '../../common/layout/index.jsx';
 import useApiConnection from '../../../utils/apiConnection';
 
@@ -34,7 +34,7 @@ const AskQuestionDialog = ({ isOpen, onClose }) => {
 
           <Divider />
 
-          <QuestionSimpleCardView question={question} />
+          <QuestionExpandableCardView question={question} isInteractive={false} />
         </AlertDialogBody>
 
         <AlertDialogFooter>

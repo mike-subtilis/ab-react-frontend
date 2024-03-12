@@ -1,10 +1,11 @@
-import { Checkbox, Input, Text } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import AnswerCompactView from './AnswerCompactView.jsx';
+import AnswerSimpleCard from './AnswerSimpleCard.jsx';
 import ButtonIcon from '../../common/ButtonIcon.jsx';
 import Spinner from '../../common/Spinner.jsx';
+import { Checkbox, Input } from '../../common/index.jsx';
 import { HStack, VStack } from '../../common/layout/index.jsx';
+import { Text } from '../../common/text/index.jsx';
 import arrayUtil from '../../../utils/arrayUtil.js';
 import useApiConnection from '../../../utils/apiConnection.js';
 import useDebouncedEffect from '../../../utils/useDebouncedEffect.js';
@@ -84,7 +85,7 @@ const AnswerSearchableCheckList = ({ question, firstFieldRef, onChange }) => {
         disabled={hasExactMatch({ text: answerText }, answers)}
         onClick={() => addNewAnswer({ text: answerText })}
       />      
-      <AnswerCompactView answer={{ text: answerText }} />
+      <AnswerSimpleCard answer={{ text: answerText }} />
     </HStack>}
 
     {hasPending && <Spinner />}
@@ -115,7 +116,7 @@ const AnswerSearchableCheckList = ({ question, firstFieldRef, onChange }) => {
           }
           setCheckedAnswerIds(newCheckedAnswerIds);
         }}>
-        <AnswerCompactView answer={a} key={a.id} />
+        <AnswerSimpleCard answer={a} key={a.id} />
       </Checkbox>)}
   </VStack>;
 };

@@ -9,11 +9,11 @@ import BallotGenerator from '../ballot/BallotGenerator.jsx';
 
 // const { apiPut } = useApiConnection();
 
-const QuestionExpandableCardView = ({ question, ...others }) => {
+const QuestionExpandableCardView = ({ question, isInteractive, ...others }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
 
-  const canExpand = question.answerIds?.length > 0;
+  const canExpand = isInteractive && question.answerIds?.length > 0;
 
   /* TODO:
   function addToFavorites() {
@@ -35,7 +35,7 @@ const QuestionExpandableCardView = ({ question, ...others }) => {
         <BallotGenerator isActive={isExpanded} questionId={question.id} />
         <QuestionCompactResults isActive={isExpanded} questionId={question.id} />
       </VStack>
-      <VStack justify='space-between'>
+      {isInteractive && <VStack justify='space-between'>
         <VStack sx={{ flexGrow: 0, flexShrink: 1 }}>
           <ButtonIconTiny iconKey='edit' onClick={() => navigate(`/questions/${question.id}`)} />
         </VStack>
@@ -43,11 +43,16 @@ const QuestionExpandableCardView = ({ question, ...others }) => {
           iconKey={isExpanded ? 'caret-up' : 'caret-down'}
           onClick={() => setIsExpanded(!isExpanded)}
         />}
-      </VStack>
+      </VStack>}
     </HStack>
   </Box>;
 };
 
-QuestionExpandableCardView.propTypes = { question: PropTypes.object };
+QuestionExpandableCardView.propTypes = {
+  question: PropTypes.object,
+  isInteractive: PropTypes.bool,
+};
+
+QuestionExpandableCardView.defaultProps = { isInteractive: true };
 
 export default QuestionExpandableCardView;

@@ -1,7 +1,8 @@
 
-import { Grid, Input, InputGroup, InputLeftAddon, VStack } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
+import { Input, InputGroup, InputLeftAddon } from '../components/common/index.jsx';
+import { Grid, VStack } from '../components/common/layout/index.jsx';
 import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
 import AnswersList from '../components/domain/answer/AnswersList.jsx';
 

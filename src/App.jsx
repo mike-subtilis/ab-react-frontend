@@ -1,11 +1,10 @@
-import { ChakraProvider, Container } from '@chakra-ui/react';
+import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import AuthenticationProvider from './components/auth/AuthenticationProvider.jsx';
 
-import Footer from './components/Footer.jsx';
-import NavBar from './components/NavBar.jsx';
+import { Container, Footer, NavBar } from './components/common/layout/index.jsx';
 import initFontAwesome from './utils/initFontAwesome';
 
 import AboutPage from './views/AboutPage.jsx';

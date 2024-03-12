@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import Ballot from './Ballot.jsx';
 import useApiConnection from '../../../utils/apiConnection';
 
 const BallotGenerator = ({ isActive, questionId }) => {
-  const { apiGet } = useApiConnection();
+  const { apiPost } = useApiConnection();
   const [ballot, setBallot] = useState(null);
 
   useEffect(() => {
     if (isActive) {
-      apiGet(`/questions/${questionId}/get-ballot`)
+      apiPost(`/questions/${questionId}/request-ballot`)
         .then((ballotData) => {
           setBallot(ballotData);
         })
@@ -16,8 +17,15 @@ const BallotGenerator = ({ isActive, questionId }) => {
     }
   }, [isActive, questionId]);
 
+  function vote(answerIndex) {
+    apiPost(`/questions/${questionId}/return-ballot`,
+      { id: ballot.id, vote: answerIndex })
+      .then(() => { })
+      .catch(ex => { console.error(ex); });
+  }
+
   if (!isActive) { return null; }
-  return <span>{JSON.stringify(ballot)}</span>;
+  return <Ballot ballot={ballot} onVote={vote} />;
 };
 
 BallotGenerator.propTypes = {

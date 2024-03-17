@@ -30,7 +30,7 @@ const QuestionExpandableCardView = ({ question, isInteractive, ...others }) => {
         <QuestionCompactView
           question={question}
           sx={!isExpanded && canExpand ? { cursor: 'pointer' } : {}}
-          onClick={!isExpanded && canExpand && (() => setIsExpanded(true))}
+          onClick={(!isExpanded && canExpand) ? (() => setIsExpanded(true)) : undefined}
         />
         <BallotGenerator isActive={isExpanded} questionId={question.id} />
         <QuestionCompactResults isActive={isExpanded} questionId={question.id} />

@@ -4,28 +4,32 @@ import Ballot from './Ballot.jsx';
 import useApiConnection from '../../../utils/apiConnection';
 
 const BallotGenerator = ({ isActive, questionId }) => {
-  const { apiPost } = useApiConnection();
+  const { apiPost, hasPending } = useApiConnection();
   const [ballot, setBallot] = useState(null);
+  const [refreshCount, setRefreshCount] = useState(0);
 
   useEffect(() => {
     if (isActive) {
+      setBallot(null);
       apiPost(`/questions/${questionId}/request-ballot`)
         .then((ballotData) => {
           setBallot(ballotData);
         })
         .catch(ex => { console.error(ex); });
     }
-  }, [isActive, questionId]);
+  }, [isActive, questionId, refreshCount]);
 
   function vote(answerIndex) {
     apiPost(`/questions/${questionId}/return-ballot`,
       { id: ballot.id, vote: answerIndex })
-      .then(() => { })
+      .then(() => {
+        setRefreshCount(p => p + 1);
+      })
       .catch(ex => { console.error(ex); });
   }
 
   if (!isActive) { return null; }
-  return <Ballot ballot={ballot} onVote={vote} />;
+  return <Ballot disabled={hasPending} ballot={ballot} onVote={vote} />;
 };
 
 BallotGenerator.propTypes = {

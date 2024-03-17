@@ -1,4 +1,4 @@
-import { Box, Container, Divider, Grid, SimpleGrid, Wrap, WrapItem } from '@chakra-ui/react';
+import { Box, Container, Divider, SimpleGrid, Wrap, WrapItem } from '@chakra-ui/react';
 import Footer from './Footer.jsx';
 import HStack from './HStack.jsx';
 import NavBar from './NavBar.jsx';
@@ -9,7 +9,6 @@ const allComponents = {
   Container,
   Divider,
   Footer,
-  Grid,
   HStack,
   NavBar,
   SimpleGrid,
@@ -22,7 +21,6 @@ export { Box };
 export { Container };
 export { Divider };
 export { Footer };
-export { Grid };
 export { HStack };
 export { NavBar };
 export { SimpleGrid };

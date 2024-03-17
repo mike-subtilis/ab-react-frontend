@@ -1,7 +1,10 @@
-import { Avatar, Collapse, Heading, HStack, IconButton, Input, Progress, Text, VStack } from '@chakra-ui/react';
+import { Avatar, Collapse, Input, Progress } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useUserContext } from '../components/auth/UserProvider.jsx';
+import ButtonIcon from '../components/common/ButtonIcon.jsx';
+import { HStack, VStack } from '../components/common/layout/index.jsx';
+import { Heading, Text } from '../components/common/text/index.jsx';
 import useApiConnection from '../utils/apiConnection';
 
 export const ProfilePage = () => {
@@ -47,7 +50,7 @@ export const ProfilePage = () => {
           </Heading>
 
           <HStack direction='row' >
-            <IconButton
+            <ButtonIcon
               aria-label='Edit your name'
               isRound
               size='xs'
@@ -58,7 +61,7 @@ export const ProfilePage = () => {
             />
 
             <Collapse  in={isEditingName} out={!isEditingName} animateOpacity>
-              <IconButton
+              <ButtonIcon
                 aria-label='Save'
                 isRound
                 size='xs'
@@ -67,7 +70,7 @@ export const ProfilePage = () => {
                 colorScheme='green'
                 onClick={() => { saveName(); setIsEditingName(false); }}
               />
-              <IconButton
+              <ButtonIcon
                 aria-label='Cancel'
                 isRound
                 size='xs'

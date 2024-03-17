@@ -1,7 +1,8 @@
 
-import { Grid, Input, InputGroup, InputLeftAddon, VStack } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
+import { Input, InputGroup, InputLeftAddon } from '../components/common/index.jsx';
+import { SimpleGrid, VStack } from '../components/common/layout/index.jsx';
 import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
 import AnswersList from '../components/domain/answer/AnswersList.jsx';
 
@@ -24,9 +25,9 @@ const AnswersPage = () => {
       />
     </InputGroup>
 
-    <Grid gap={2} autoFlow='row' templateColumns='repeat(3, 1fr)'>
+    <SimpleGrid columns={{ base: 1, xl: 5, lg: 4, md: 3, sm: 2 }} spacing={8} sx={{ p: 4 }}>
       <AnswersList textFilter={searchText} onError={e => setError(e)} />
-    </Grid>
+    </SimpleGrid>
   </VStack>;
 };
 

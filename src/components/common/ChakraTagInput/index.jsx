@@ -1,9 +1,10 @@
 /* FROM: https://codesandbox.io/p/sandbox/chakra-tag-input-d04s0 */
 
-import { Input, Wrap, WrapItem, VStack } from '@chakra-ui/react';
+import { Input } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { forwardRef, useCallback } from 'react';
 import maybeCall from './maybe';
+import { Wrap, WrapItem, VStack } from '../layout/index.jsx';
 import ChakraTagInputTag from './Tag.jsx';
 
 const ChakraTagInput = forwardRef(function ChakraTagInput({

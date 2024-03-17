@@ -1,8 +1,8 @@
-import { Grid, VStack } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
 import Toolbar from '../components/common/Toolbar.jsx';
 import ToolbarButton from '../components/common/ToolbarButton.jsx';
+import { SimpleGrid, VStack } from '../components/common/layout/index.jsx';
 import QuestionsList from '../components/domain/question/QuestionsList.jsx';
 import QuestionAskDialog from '../components/domain/question/QuestionAskDialog.jsx';
 import { useAuthentication } from '../components/auth/AuthenticationProvider.jsx';
@@ -25,9 +25,9 @@ const QuestionsPage = () => {
         onClick={() => setIsAddDialogOpen(true)} />
     </Toolbar>}
 
-    <Grid gap={2} autoFlow='row' templateColumns='repeat(3, 1fr)' sx={{ p: 4 }}>
+    <SimpleGrid columns={{ base: 1, lg: 3, md: 2, sm: 1 }} spacing={8} sx={{ p: 4 }}>
       <QuestionsList onError={e => setError(e)} />
-    </Grid>
+    </SimpleGrid>
   </VStack>;
 };
 

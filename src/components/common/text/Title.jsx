@@ -1,6 +1,7 @@
-import { Heading, VStack } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Heading } from './index.jsx';
+import { VStack } from '../layout/index.jsx';
 
 const Title = ({ heading, subheading }) => {
   return <VStack alignItems='flex-start' gap={0} sx={{ py: 1, px: 4, mb: 2, backgroundColor: '#ff4000', color: 'white' }}>

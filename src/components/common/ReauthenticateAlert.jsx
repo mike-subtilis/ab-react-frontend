@@ -1,11 +1,11 @@
 import {
   Alert, AlertIcon, AlertDescription,
   AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter,
-  Button,
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
 import { useAuthentication } from '../auth/AuthenticationProvider.jsx';
+import { Button } from './index.jsx';
 
 const ReauthenticateAlert = ({ error, clearError }) => {
   const { loginWithPopup, getAccessTokenWithPopup } = useAuthentication();

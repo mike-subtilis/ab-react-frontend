@@ -1,6 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-  faBan, faCheck, faChevronDown, faEdit, faExclamationTriangle,
+  faBan, faCaretDown, faCaretUp, faCheck, faChevronDown, faChevronUp, faEdit, faExclamationTriangle,
+  faHockeyPuck,
   faPlus, faPowerOff, faQuestion, faSearch, faSpinner,
   faStar, faTimes, faUser, faVoteYea,
 } from '@fortawesome/free-solid-svg-icons';
@@ -8,11 +9,15 @@ import { faCommentDots, faStar as farStar } from '@fortawesome/free-regular-svg-
 
 function initFontAwesome() {
   library.add(faBan);
+  library.add(faCaretDown);
+  library.add(faCaretUp);
   library.add(faCheck);
   library.add(faChevronDown);
+  library.add(faChevronUp);
   library.add(faCommentDots);
   library.add(faEdit);
   library.add(faExclamationTriangle);
+  library.add(faHockeyPuck);
   library.add(faPowerOff);
   library.add(faPlus);
   library.add(faSearch);

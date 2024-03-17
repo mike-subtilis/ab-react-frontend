@@ -1,28 +1,56 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { Chart, LinearScale, CategoryScale, BarElement, Tooltip } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { Bar } from 'react-chartjs-2';
+
+Chart.register(BarElement,
+  CategoryScale,
+  ChartDataLabels,
+  LinearScale,
+  Tooltip);
 
 const BarChart = ({ items, defaultColor }) => {
   // { items: [{ name, value }] }
-  const values = items.map(v => v.value);
-  const minValue = 0;
-  const maxValue = Math.min(values) || 1;
+  const chartOptions = {
+    indexAxis: 'y',
+    plugins: {
+      datalabels: {
+        display: true,
+        anchor: 'end',
+        align: 'end',
+        font: { weight: 'bold' },
+      },
+    },
+    scales: {
+      x: {
+        display: false,
+        position: 'bottom',
+        grid: { display: false },
+      },
+      y: {
+        grid: { display: false },
+        ticks: { display: true },
+      },
+    }
+  };
+  const defaultMappedData = {
+    label: undefined,
+    color: 'black',
+    borderRadius: Number.MAX_VALUE,
+    borderSkipped: false,
+  };
 
-  return <table>
-    {items.map(i => {
-      return <tr key={i.name}>
-        <td style={{ width: '1px' }}>{i.name}</td>
-        <td style={{ width: '100%' }}>
-          <div style={{
-            height: '100%',
-            minHeight: '16px',
-            width: `${((i.value - minValue) / (maxValue - minValue))}%`,
-            backgroundColor: defaultColor,
-            borderRadius: '8px'
-          }}/>
-        </td>
-      </tr>
-    })}
-  </table>
+  const mappedData = {
+    labels: items.map(i => i.name),
+    datasets: [{
+      ...defaultMappedData,
+      backgroundColor: items.map(i => i.color || defaultColor),
+      data: items.map(i => i.value),
+    }],
+  };
+
+  return <Bar options={chartOptions} data={mappedData} />;
 };
 
 BarChart.propTypes = {

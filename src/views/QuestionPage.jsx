@@ -16,6 +16,7 @@ const QuestionPage = () => {
 
   const { apiGet, apiPut, hasPending } = useApiConnection();
   const [question, setQuestion] = useState(null);
+  const [localQuestion, setLocalQuestion] = useState(null);
   const [answerCount, setAnswerCount] = useState(0);
   const [canUpdate, setCanUpdate] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -25,7 +26,10 @@ const QuestionPage = () => {
   useEffect(() => {
     setError(null);
     apiGet(`/questions/${params.questionId}`)
-      .then(responseData => setQuestion(responseData || null))
+      .then((responseData) => {
+        setQuestion(responseData || null);
+        setLocalQuestion(responseData || null);
+      })
       .catch(e => setError(e.error));
 
     apiGet(`/users/me/has-permission/${params.questionId}?keys=question:update`)
@@ -48,10 +52,11 @@ const QuestionPage = () => {
   function saveQuestion() {
     setIsSaving(true);
     apiPut(
-      `/questions/${question.id}?etag=${question._etag}`,
-      question)
+      `/questions/${localQuestion.id}?etag=${localQuestion._etag}`,
+      localQuestion)
       .then((updatedQuestion) => {
         setQuestion(updatedQuestion || null);
+        setLocalQuestion(updatedQuestion || null);
         setIsEditing(false);
       })
       .catch(e => setError(e.error))
@@ -79,7 +84,7 @@ const QuestionPage = () => {
     <VStack alignItems='flex-start' sx={{ p: 4 }}>
       <ReauthenticateAlert error={error} clearError={() => setError(null)} />
       {!isEditing && <QuestionCompactView question={question} />}
-      {isEditing && <QuestionEditor question={question} onChange={q => setQuestion(q)} />}
+      {isEditing && <QuestionEditor question={localQuestion} onChange={q => setLocalQuestion(q)} />}
 
       <Divider />
 

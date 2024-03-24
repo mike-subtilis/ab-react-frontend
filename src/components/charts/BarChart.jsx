@@ -13,6 +13,7 @@ Chart.register(BarElement,
 const BarChart = ({ items, defaultColor }) => {
   // { items: [{ name, value }] }
   const chartOptions = {
+    aspectRatio: 2,
     indexAxis: 'y',
     plugins: {
       datalabels: {
@@ -50,7 +51,9 @@ const BarChart = ({ items, defaultColor }) => {
     }],
   };
 
-  return <Bar options={chartOptions} data={mappedData} />;
+  return <div style={{width: '99%'}}>
+    <Bar options={chartOptions} data={mappedData} />
+  </div>;
 };
 
 BarChart.propTypes = {

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Tag from '../Tag.jsx';
 import { HStack, VStack } from '../../common/layout/index.jsx';
-import { Heading, Text } from '../../common/text/index.jsx';
+import { Heading, SmallText, Text } from '../../common/text/index.jsx';
 import { formatDateTimeFriendly } from '../../../utils/dateUtils';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -24,11 +24,11 @@ const QuestionCompactView = ({ question, ...others }) => {
       {(question.tags || []).map(t => <Tag tagText={t} key={t} />)}
     </HStack>
     {(question.createdByUserName || question.createdAt) &&
-      <Text fontSize='xs' style={{ color: 'gray', marginBottom: 0 }}>
+      <SmallText>
         {question.createdByUserName}
         &nbsp;on&nbsp;
         {formatDateTimeFriendly(question.createdAt)}
-      </Text>}
+      </SmallText>}
   </VStack>;
 };
 

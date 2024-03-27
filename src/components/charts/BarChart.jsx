@@ -30,7 +30,7 @@ const BarChart = ({ items, defaultColor }) => {
       },
       y: {
         grid: { display: false },
-        ticks: { display: true },
+        ticks: { display: true, autoSkip: false },
       },
     }
   };
@@ -50,7 +50,9 @@ const BarChart = ({ items, defaultColor }) => {
     }],
   };
 
-  return <Bar options={chartOptions} data={mappedData} />;
+  return <div style={{width: '99%'}}>
+    <Bar options={chartOptions} data={mappedData} style={{ width: '100%' }} />
+  </div>;
 };
 
 BarChart.propTypes = {

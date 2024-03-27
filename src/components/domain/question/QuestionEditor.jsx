@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 import TagInput from '../../common/ChakraTagInput/index.jsx';
-import { Input, Select } from '../../common/index.jsx';
+import { Input, Label, RadioGroup, Radio, Select, Switch } from '../../common/index.jsx';
 import { HStack, VStack } from '../../common/layout/index.jsx';
+import { SmallText } from '../../common/text/index.jsx';
 
 const defaultQuestion = {
   prefix: 'What is the',
   metric: 'Best',
+  publicity: 'private',
 };
 
 const QuestionEditor = ({ question, onChange }) => {
@@ -23,6 +25,7 @@ const QuestionEditor = ({ question, onChange }) => {
     isMountedRef.current = true;
   }, []);
 
+  const canVotingBeOpened = question.answerIds && (question.answerIds.length >= 2);
   return <VStack gap={2} align='stretch'>
     <Select
       value={localQuestion.prefix}
@@ -50,6 +53,26 @@ const QuestionEditor = ({ question, onChange }) => {
       tags={localQuestion.tags}
       onTagsChange={(e, t) => setLocalQuestion(q => ({ ...q, tags: t }))}
       tagProps={{ size: 'sm', borderRadius: 'full', colorScheme: 'red', variant: 'solid' }} />
+
+    <Label>Who can see this question?</Label>
+    <RadioGroup onChange={v => setLocalQuestion(q => ({ ...q, publicity: v }))} value={localQuestion.publicity}>
+      <HStack gap={8}>
+        <Radio value='private'>Just Me</Radio>
+        <Radio value='public'>Registered Users</Radio>
+        <Radio value='anonymous'>Anyone</Radio>
+      </HStack>
+    </RadioGroup>
+
+    <VStack alignItems='flex-start' gap={0}>
+      <Switch
+        value={localQuestion.isVotingOpen}
+        onChange={v => setLocalQuestion(q => ({ ...q, isVotingOpen: v }))}
+        label='Is Voting Open?'
+        isDisabled={!canVotingBeOpened}
+        sx={{ mb: 0 }}
+      />
+      {!canVotingBeOpened && <SmallText validation>At least 2 answers are needed</SmallText>}
+    </VStack>
   </VStack>;
 };
 

@@ -66,13 +66,13 @@ const HomePage = () => {
             subheading='Short list of things that I want / need to do for this project'
           />
           <UnorderedList>
-            <ListItem>Public-Anonymous (i.e. not signed in) questions & voting</ListItem>
             <ListItem>Masonry question layout? Answer UI update?</ListItem>
             <ListItem>Backend: use Kafka for analysis (yes, overengineering for small personal project)</ListItem>
             <ListItem>Tags are not just free-text</ListItem>
             <ListItem>Search questions by tag</ListItem>
             <ListItem>Private vs Public / Listed vs Unlisted questions</ListItem>
             <ListItem>Delete questions?</ListItem>
+            <ListItem>Backend: db performance</ListItem>
             <ListItem>Backend: logging</ListItem>
             <ListItem>Backend: use Redis for cache (yes, overengineering again for small personal project)</ListItem>
             <ListItem>Hosting: figure out www site prefix with SSL cert</ListItem>

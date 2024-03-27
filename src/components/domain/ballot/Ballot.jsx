@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import AnswerCompactView from '../answer/AnswerCompactView.jsx';
 import { Button } from '../../common/index.jsx';
-import { HStack } from '../../common/layout/index.jsx';
+import { Wrap } from '../../common/layout/index.jsx';
 import { Text } from '../../common/text/index.jsx';
 
 const Ballot = ({ ballot, disabled, onVote }) => {
-  return <HStack gap={2} alignItems='center'>
+  return <Wrap gap={2} align='center' alignItems='center'>
     <Button size='sm' onClick={() => onVote(0)} isLoading={disabled || !ballot}>
       {ballot && <AnswerCompactView answer={ballot.answers[0]} />}
     </Button>
@@ -14,7 +14,7 @@ const Ballot = ({ ballot, disabled, onVote }) => {
     <Button size='sm' onClick={() => onVote(1)} isLoading={disabled || !ballot}>
       {ballot && <AnswerCompactView answer={ballot.answers[1]} />}
     </Button>
-  </HStack>;
+  </Wrap>;
 };
 
 Ballot.propTypes = {

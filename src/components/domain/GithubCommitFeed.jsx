@@ -3,7 +3,7 @@ import { sortBy } from 'lodash';
 import ErrorAlert from '../common/ErrorAlert.jsx';
 import Title from '../common/text/Title.jsx';
 import { Box, HStack, VStack } from '../common/layout/index.jsx';
-import { Heading, Link, Text } from '../common/text/index.jsx';
+import { Heading, Link, SmallText, Text } from '../common/text/index.jsx';
 import { formatDateTimeFriendly } from '../../utils/dateUtils';
 
 const maxCount = 10;
@@ -66,7 +66,7 @@ const GithubCommitFeed = () => {
     {combinedEntries.map(c => <Box key={c.date}>
       <HStack alignItems='baseline'>
         <Heading size='sm' sx={{ mb: 0 }}>{c.source}</Heading>
-        <Text fontSize='xs' sx={{ mb: 0 }}>{formatDateTimeFriendly(c.date)}</Text>
+        <SmallText>{formatDateTimeFriendly(c.date)}</SmallText>
       </HStack>
       <Text>{c.message}</Text>
     </Box>)}

@@ -26,7 +26,7 @@ const QuestionExpandableCardView = ({ question, isInteractive, ...others }) => {
 
   return <Box boxShadow='base' rounded='md' bg='white' sx={{ ...others.sx, p: 4 }} {...others}>
     <HStack justify='space-between' alignItems='stretch' divider={<Divider orientation='vertical' height='auto' />}>
-      <VStack sx={{ flexGrow: 1 }} align='stretch' divider={isExpanded && <Divider />}>
+      <VStack sx={{ flexGrow: 1 }} alignItems='stretch' divider={isExpanded && <Divider />}>
         <QuestionCompactView
           question={question}
           sx={!isExpanded && canExpand ? { cursor: 'pointer' } : {}}
@@ -37,7 +37,7 @@ const QuestionExpandableCardView = ({ question, isInteractive, ...others }) => {
       </VStack>
       {isInteractive && <VStack justify='space-between'>
         <VStack sx={{ flexGrow: 0, flexShrink: 1 }}>
-          <ButtonIconTiny iconKey='edit' onClick={() => navigate(`/questions/${question.id}`)} />
+          <ButtonIconTiny iconKey='search' onClick={() => navigate(`/questions/${question.id}`)} />
         </VStack>
         {canExpand && <ButtonIconTiny
           iconKey={isExpanded ? 'caret-up' : 'caret-down'}

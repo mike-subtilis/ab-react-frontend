@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import BarChart from '../components/charts/BarChart.jsx';
 import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
 import { Button, Toolbar, ToolbarButton, Spinner } from '../components/common/index.jsx';
 import { Divider, HStack, VStack, Wrap, WrapItem } from '../components/common/layout/index.jsx';
@@ -16,20 +17,29 @@ const QuestionPage = () => {
 
   const { apiGet, apiPut, hasPending } = useApiConnection();
   const [question, setQuestion] = useState(null);
+  const [localQuestion, setLocalQuestion] = useState(null);
   const [answerCount, setAnswerCount] = useState(0);
   const [canUpdate, setCanUpdate] = useState(false);
+  const [canUpdateAnswers, setCanUpdateAnswers] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [results, setResults] = useState([]);
 
   useEffect(() => {
     setError(null);
     apiGet(`/questions/${params.questionId}`)
-      .then(responseData => setQuestion(responseData || null))
+      .then((responseData) => {
+        setQuestion(responseData || null);
+        setLocalQuestion(responseData || null);
+      })
       .catch(e => setError(e.error));
 
-    apiGet(`/users/me/has-permission/${params.questionId}?keys=question:update`)
-      .then(responseData => setCanUpdate(responseData.includes('question:update')))
+    apiGet(`/users/me/has-permission/${params.questionId}?keys=question:update,question:update:update-answers`)
+      .then((responseData) => {
+        setCanUpdate(responseData.includes('question:update'));
+        setCanUpdateAnswers(responseData.includes('question:update:update-answers'));
+      })
       .catch(e => setError(e.error));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -38,8 +48,13 @@ const QuestionPage = () => {
       apiGet(`/answers/count?${new URLSearchParams({ questionId: question.id }).toString()}`)
         .then(count => setAnswerCount(count))
         .catch(e => setError(e.error));
+
+      apiGet(`/questions/${question.id}/results?count=1000`)
+        .then(resultsData => setResults(resultsData))
+        .catch(ex => { console.error(ex); });
     } else {
       setAnswerCount(0);
+      setResults([]);
     }
   }, [question]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -48,10 +63,11 @@ const QuestionPage = () => {
   function saveQuestion() {
     setIsSaving(true);
     apiPut(
-      `/questions/${question.id}?etag=${question._etag}`,
-      question)
+      `/questions/${localQuestion.id}?etag=${localQuestion._etag}`,
+      localQuestion)
       .then((updatedQuestion) => {
         setQuestion(updatedQuestion || null);
+        setLocalQuestion(updatedQuestion || null);
         setIsEditing(false);
       })
       .catch(e => setError(e.error))
@@ -79,7 +95,7 @@ const QuestionPage = () => {
     <VStack alignItems='flex-start' sx={{ p: 4 }}>
       <ReauthenticateAlert error={error} clearError={() => setError(null)} />
       {!isEditing && <QuestionCompactView question={question} />}
-      {isEditing && <QuestionEditor question={question} onChange={q => setQuestion(q)} />}
+      {isEditing && <QuestionEditor question={localQuestion} onChange={q => setLocalQuestion(q)} />}
 
       <Divider />
 
@@ -87,9 +103,17 @@ const QuestionPage = () => {
         <HStack gap={2} alignItems='baseline'>
           <span>{answerCount}</span>
           <span>Answers</span>
-          <Button size='sm' onClick={() => setIsOpen(true)}>Add / Remove Answers</Button>
+          {canUpdateAnswers && <Button
+            size='sm'
+            onClick={() => setIsOpen(true)}
+          >
+            Add / Remove Answers
+          </Button>}
         </HStack>
       </Heading>
+
+      <BarChart items={results} />
+
       <Wrap spacing={10}>
         <AnswersList
           questionIdFilter={question?.id || '-no-question-'}

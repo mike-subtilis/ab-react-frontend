@@ -8,7 +8,7 @@ import useApiConnection from '../../../utils/apiConnection';
 const REFRESH_INTERVAL_MS = 1000 * 30;
 const QuestionCompactResults = ({ isActive, autoRefresh, questionId }) => {
   const { apiGet } = useApiConnection();
-  const [results, setResults] = useState(null);
+  const [results, setResults] = useState([]);
   const nextRefreshTime = useRef(0);
   const [progressToNextRefresh, setProgressToNextRefresh] = useState(0);
   const isRefreshing = useRef(true);
@@ -43,9 +43,9 @@ const QuestionCompactResults = ({ isActive, autoRefresh, questionId }) => {
   }, [isActive, questionId, isRefreshing.current]);
 
   if (!isActive) { return null; }
-  const defaultResults = [];
+
   return <VStack alignItems='stretch'>
-    <BarChart items={results || defaultResults} />
+    <BarChart items={results} />
     {autoRefresh && <LinearProgress value={progressToNextRefresh} height='1px' />}
   </VStack>;
 };

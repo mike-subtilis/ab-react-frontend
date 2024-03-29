@@ -74,7 +74,6 @@ const HomePage = () => {
             <ListItem>Delete questions?</ListItem>
             <ListItem>Backend: db performance</ListItem>
             <ListItem>Backend: logging</ListItem>
-            <ListItem>Backend: use Redis for cache (yes, overengineering again for small personal project)</ListItem>
             <ListItem>Hosting: figure out www site prefix with SSL cert</ListItem>
           </UnorderedList>
         </VStack>
@@ -88,7 +87,7 @@ const HomePage = () => {
             <ListItem>Frontend: React / Chakra-UI / js</ListItem>
             <ListItem>Backend: Node.js / express</ListItem>
             <ListItem>Authentication: Auth0</ListItem>
-            <ListItem>DB: Azure Cosmos NoSQL</ListItem>
+            <ListItem>DB: Azure Cosmos NoSQL (questions, answers, users), Redis (ballots)</ListItem>
             <ListItem>Hosting: Azure Web App, Namecheap DNS</ListItem>
           </UnorderedList>
         </VStack>

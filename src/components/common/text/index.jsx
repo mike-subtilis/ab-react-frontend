@@ -1,6 +1,7 @@
 import { Heading, Link, Text } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React from 'react';
+import Stat from './Stat.jsx';
 import Title from './Title.jsx';
 
 const SmallText = ({ validation, children }) => {
@@ -14,6 +15,7 @@ const allComponents = {
   Heading,
   Link,
   SmallText,
+  Stat,
   Text,
   Title,
 };
@@ -21,6 +23,7 @@ const allComponents = {
 export { Heading };
 export { Link };
 export { SmallText };
+export { Stat };
 export { Text };
 export { Title };
 

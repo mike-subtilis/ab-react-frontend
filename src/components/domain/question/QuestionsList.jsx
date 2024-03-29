@@ -11,7 +11,7 @@ export const QuestionsList = ({ onError }) => {
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     onError(null);
-    apiGet('/questions')
+    apiGet('/questions?sort=-createdAt')
       .then(responseData => setQuestions(responseData || []))
       .catch(e => onError(e.error));
   }, []);

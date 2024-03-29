@@ -10,7 +10,9 @@ Chart.register(BarElement,
   LinearScale,
   Tooltip);
 
-const BarChart = ({ items, defaultColor }) => {
+const BarChart = ({ items, defaultColor, labelFieldName, valueFieldName }) => {
+  if (!items || items.length === 0) { return null; }
+
   // { items: [{ name, value }] }
   const chartOptions = {
     indexAxis: 'y',
@@ -42,11 +44,11 @@ const BarChart = ({ items, defaultColor }) => {
   };
 
   const mappedData = {
-    labels: items.map(i => i.name),
+    labels: items.map(i => i[labelFieldName]),
     datasets: [{
       ...defaultMappedData,
       backgroundColor: items.map(i => i.color || defaultColor),
-      data: items.map(i => i.value),
+      data: items.map(i => i[valueFieldName]),
     }],
   };
 
@@ -58,8 +60,14 @@ const BarChart = ({ items, defaultColor }) => {
 BarChart.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   defaultColor: PropTypes.string,
+  labelFieldName: PropTypes.string,
+  valueFieldName: PropTypes.string,
 };
 
-BarChart.defaultProps = { defaultColor: '#c0c0e0' };
+BarChart.defaultProps = {
+  defaultColor: '#c0c0e0',
+  labelFieldName: 'name',
+  valueFieldName: 'value',
+};
 
 export default BarChart;

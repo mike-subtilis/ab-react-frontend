@@ -2,13 +2,15 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 import { LinearProgress } from '../../common/index.jsx';
 import { VStack } from '../../common/layout/index.jsx';
+import { Stat } from '../../common/text/index.jsx';
 import BarChart from '../../charts/BarChart.jsx';
 import useApiConnection from '../../../utils/apiConnection';
 
 const REFRESH_INTERVAL_MS = 1000 * 30;
 const QuestionCompactResults = ({ isActive, autoRefresh, questionId }) => {
   const { apiGet } = useApiConnection();
-  const [results, setResults] = useState([]);
+  const [votes, setVotes] = useState(0);
+  const [answerWins, setAnswerWins] = useState([]);
   const nextRefreshTime = useRef(0);
   const [progressToNextRefresh, setProgressToNextRefresh] = useState(0);
   const isRefreshing = useRef(true);
@@ -34,7 +36,8 @@ const QuestionCompactResults = ({ isActive, autoRefresh, questionId }) => {
     if (isActive && isRefreshing.current) {
       apiGet(`/questions/${questionId}/results`)
         .then((resultsData) => {
-          setResults(resultsData);
+          setVotes(resultsData.votes);
+          setAnswerWins(resultsData.answerWins);
           nextRefreshTime.current = new Date().getTime() + REFRESH_INTERVAL_MS;
           isRefreshing.current = false;
         })
@@ -45,7 +48,12 @@ const QuestionCompactResults = ({ isActive, autoRefresh, questionId }) => {
   if (!isActive) { return null; }
 
   return <VStack alignItems='stretch'>
-    <BarChart items={results} />
+    <Stat heading='Total Votes' value={votes} />
+    <BarChart
+      items={answerWins}
+      labelFieldName='text'
+      valueFieldName='wins'
+    />
     {autoRefresh && <LinearProgress value={progressToNextRefresh} height='1px' />}
   </VStack>;
 };

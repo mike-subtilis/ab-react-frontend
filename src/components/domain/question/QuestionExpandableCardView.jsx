@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import QuestionCompactView from './QuestionCompactView.jsx';
 import QuestionCompactResults from './QuestionCompactResults.jsx';
 import { ButtonIconTiny } from '../../common/index.jsx';
-import { Box, Divider, HStack, VStack } from '../../common/layout/index.jsx';
+import { BasicCard, Divider, HStack, VStack } from '../../common/layout/index.jsx';
 import BallotGenerator from '../ballot/BallotGenerator.jsx';
 
 // const { apiPut } = useApiConnection();
@@ -24,7 +24,7 @@ const QuestionExpandableCardView = ({ question, isInteractive, ...others }) => {
   }
   */
 
-  return <Box boxShadow='base' rounded='md' bg='white' sx={{ ...others.sx, p: 4 }} {...others}>
+  return <BasicCard sx={others.sx} {...others}>
     <HStack justify='space-between' alignItems='stretch' divider={<Divider orientation='vertical' height='auto' />}>
       <VStack sx={{ flexGrow: 1 }} alignItems='stretch' divider={isExpanded && <Divider />}>
         <QuestionCompactView
@@ -45,7 +45,7 @@ const QuestionExpandableCardView = ({ question, isInteractive, ...others }) => {
         />}
       </VStack>}
     </HStack>
-  </Box>;
+  </BasicCard>;
 };
 
 QuestionExpandableCardView.propTypes = {

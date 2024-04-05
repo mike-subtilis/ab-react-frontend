@@ -22,7 +22,7 @@ initFontAwesome();
 
 const App = () => {
   return <BrowserRouter>
-    <div id="app" className="d-flex flex-column h-100">
+    <div id="app" style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
       <ChakraProvider>
         <AuthenticationProvider>
           <NavBar />

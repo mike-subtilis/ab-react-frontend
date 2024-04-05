@@ -4,7 +4,7 @@ import BarChart from '../components/charts/BarChart.jsx';
 import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
 import { Button, Toolbar, ToolbarButton, Spinner } from '../components/common/index.jsx';
 import { Divider, HStack, VStack, Wrap, WrapItem } from '../components/common/layout/index.jsx';
-import { Heading, Text } from '../components/common/text/index.jsx';
+import { Heading, Stat, Text } from '../components/common/text/index.jsx';
 import AnswersList from '../components/domain/answer/AnswersList.jsx';
 import QuestionAddRemoveAnswersDialog from '../components/domain/question/QuestionAddRemoveAnswersDialog.jsx';
 import QuestionEditor from '../components/domain/question/QuestionEditor.jsx';
@@ -24,7 +24,8 @@ const QuestionPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [results, setResults] = useState([]);
+  const [votes, setVotes] = useState(0);
+  const [answerWins, setAnswerWins] = useState([]);
 
   useEffect(() => {
     setError(null);
@@ -50,11 +51,15 @@ const QuestionPage = () => {
         .catch(e => setError(e.error));
 
       apiGet(`/questions/${question.id}/results?count=1000`)
-        .then(resultsData => setResults(resultsData))
+        .then((resultsData) => {
+          setVotes(resultsData.votes);
+          setAnswerWins(resultsData.answerWins);
+        })
         .catch(ex => { console.error(ex); });
     } else {
       setAnswerCount(0);
-      setResults([]);
+      setVotes(0);
+      setAnswerWins([]);
     }
   }, [question]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -63,7 +68,7 @@ const QuestionPage = () => {
   function saveQuestion() {
     setIsSaving(true);
     apiPut(
-      `/questions/${localQuestion.id}?etag=${localQuestion._etag}`,
+      `/questions/${localQuestion.id}?etag=${localQuestion.etag}`,
       localQuestion)
       .then((updatedQuestion) => {
         setQuestion(updatedQuestion || null);
@@ -112,7 +117,8 @@ const QuestionPage = () => {
         </HStack>
       </Heading>
 
-      <BarChart items={results} />
+      <Stat heading='Total Votes' value={votes} />
+      <BarChart items={answerWins} />
 
       <Wrap spacing={10}>
         <AnswersList

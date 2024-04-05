@@ -10,7 +10,7 @@ import { Button } from '../../common/index.jsx';
 import { Divider, HStack } from '../../common/layout/index.jsx';
 import useApiConnection from '../../../utils/apiConnection';
 
-const defaultQuestion = { prefix: 'What is the', text: '', tags: [] };
+const defaultQuestion = { prefix: 'What is the', metric: 'Favorite' };
 
 const AskQuestionDialog = ({ isOpen, onClose }) => {
   const cancelRef = useRef();

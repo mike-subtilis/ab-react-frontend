@@ -1,7 +1,9 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
 import { Button } from '../components/common/index.jsx';
-import { BasicCard, SimpleGrid, VStack } from '../components/common/layout/index.jsx';
+import { BasicCard, Center, SimpleGrid, VStack } from '../components/common/layout/index.jsx';
+import { Heading } from '../components/common/text/index.jsx';
 import QuestionsList from '../components/domain/question/QuestionsList.jsx';
 import QuestionAskDialog from '../components/domain/question/QuestionAskDialog.jsx';
 import { useAuthentication } from '../components/auth/AuthenticationProvider.jsx';
@@ -23,9 +25,19 @@ const QuestionsPage = () => {
       {isAuthenticated &&
         <BasicCard sx={{ background: '#f0f0f0' }}>
           <Button
-            sx={{ height: '100%', width: '100%', background: '#f0f0f0' }}
+            sx={{ position: 'relative', height: '100%', minHeight: '80px', width: '100%', background: '#f0f0f0' }}
             onClick={() => setIsAddDialogOpen(true)}>
-            Ask a new Question
+            <Center style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 }}>
+              <FontAwesomeIcon
+                icon='question'
+                style={{ opacity: 0.1, '--fa-animation-iteration-count': 6 }}
+                size='4x'
+                beat={true}
+              />
+            </Center>
+            <Heading size='md'>
+              Ask a new Question
+            </Heading>
           </Button>
         </BasicCard>}
       <QuestionsList onError={e => setError(e)} />

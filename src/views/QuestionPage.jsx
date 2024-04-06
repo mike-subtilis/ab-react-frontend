@@ -100,7 +100,11 @@ const QuestionPage = () => {
     <VStack alignItems='flex-start' sx={{ p: 4 }}>
       <ReauthenticateAlert error={error} clearError={() => setError(null)} />
       {!isEditing && <QuestionCompactView question={question} />}
-      {isEditing && <QuestionEditor question={localQuestion} onChange={q => setLocalQuestion(q)} />}
+      {isEditing &&
+        <QuestionEditor
+          question={localQuestion}
+          onChange={q => setLocalQuestion(q)}
+        />}
 
       <Divider />
 

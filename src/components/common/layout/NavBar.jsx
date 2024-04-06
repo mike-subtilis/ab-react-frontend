@@ -18,10 +18,11 @@ const NavBar = () => {
   return <nav style={{ backgroundColor: '#ff4000', color: 'white' }}>
     <HStack align='center' gap={4} sx={{ pl: 2, pr: 2 }}>
       <Link to='/' as={ReactRouterLink}>
-        <Image src='/favicon.png' boxSize='40px' alt='AnswerBrawl logo' />
+        <HStack align='center' gap={1}>
+          <Image src='/favicon.png' boxSize='40px' alt='AnswerBrawl logo' />
+          <span>AnswerBrawl</span>
+        </HStack>
       </Link>
-      <Link to='/questions' as={ReactRouterLink}>Questions</Link>
-      <Link to='/answers' as={ReactRouterLink}>Answers</Link>
       <Link to='/about' as={ReactRouterLink}>About</Link>
 
       <div style={{ flexGrow: 1 }} />

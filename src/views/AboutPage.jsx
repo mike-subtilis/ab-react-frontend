@@ -13,7 +13,7 @@ import GithubCommitFeed from '../components/domain/GithubCommitFeed.jsx';
 
 const HomePage = () => {
   return <VStack gap={2} align='flex-start' divider={<Divider />} sx={{ p: 4 }}>
-    <SimpleGrid columns={{ base: 1, lg: 3, md: 1, sm: 1 }} spacing={2}>
+    <SimpleGrid columns={{ base: 1, lg: 3, md: 3, sm: 1 }} spacing={2}>
       <Card>
         <CardHeader>
           <Heading size='lg'>

@@ -54,6 +54,7 @@ const useApiConnection = () => {
     apiPut,
     apiDelete,
     hasPending,
+    isAuthenticated,
   };
 };
 

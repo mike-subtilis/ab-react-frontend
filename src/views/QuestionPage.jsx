@@ -15,7 +15,7 @@ const QuestionPage = () => {
   const params = useParams();
   const [error, setError] = useState(null);
 
-  const { apiGet, apiPut, hasPending } = useApiConnection();
+  const { apiGet, apiPut, hasPending, isAuthenticated } = useApiConnection();
   const [question, setQuestion] = useState(null);
   const [localQuestion, setLocalQuestion] = useState(null);
   const [answerCount, setAnswerCount] = useState(0);
@@ -36,12 +36,14 @@ const QuestionPage = () => {
       })
       .catch(e => setError(e.error));
 
-    apiGet(`/users/me/has-permission/${params.questionId}?keys=question:update,question:update:update-answers`)
-      .then((responseData) => {
-        setCanUpdate(responseData.includes('question:update'));
-        setCanUpdateAnswers(responseData.includes('question:update:update-answers'));
-      })
-      .catch(e => setError(e.error));
+    if (isAuthenticated) {
+      apiGet(`/users/me/has-permission/${params.questionId}?keys=question:update,question:update:update-answers`)
+        .then((responseData) => {
+          setCanUpdate(responseData.includes('question:update'));
+          setCanUpdateAnswers(responseData.includes('question:update:update-answers'));
+        })
+        .catch(e => setError(e.error));
+    }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {

@@ -4,20 +4,11 @@ import Tag from '../Tag.jsx';
 import { HStack, VStack } from '../../common/layout/index.jsx';
 import { Heading, SmallText, Text } from '../../common/text/index.jsx';
 import { formatDateTimeFriendly } from '../../../utils/dateUtils';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const QuestionCompactView = ({ question, ...others }) => {
-  /* 
-  <VStack justify='stretch'>
-    <FontAwesomeIcon icon={['far', 'star']} />
-    <div style={{ width: 1, height: 1 }} />
-    <FontAwesomeIcon icon='exclamation-triangle' />
-  </VStack>
-  */
-
   if (!question) return null;
 
-  return <VStack align='flex-start' gap={0} {...others}>
+  return <VStack align='flex-start' gap={0} style={{ position: 'relative' }} {...others}>
     <Text fontSize='sm' style={{ color: 'gray', marginBottom: 0 }}>{question.prefix}</Text>
     <Heading size='lg'>{question.metric} {question.subject}</Heading>
     <HStack gap={0.5}>

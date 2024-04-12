@@ -20,7 +20,7 @@ export const ProfilePage = () => {
 
   async function saveName() {
     setIsSaving(true);
-    await apiPut(`/users/me?etag=${user._etag}`, { name: localName });
+    await apiPut(`/users/me?etag=${user.etag}`, { name: localName });
     await requestRefresh();
     setIsSaving(false);
   }

@@ -4,7 +4,7 @@ import BarChart from '../components/charts/BarChart.jsx';
 import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
 import { Button, Toolbar, ToolbarButton, Spinner } from '../components/common/index.jsx';
 import { Divider, HStack, VStack, Wrap, WrapItem } from '../components/common/layout/index.jsx';
-import { Heading, Text } from '../components/common/text/index.jsx';
+import { Heading, Stat, Text } from '../components/common/text/index.jsx';
 import AnswersList from '../components/domain/answer/AnswersList.jsx';
 import QuestionAddRemoveAnswersDialog from '../components/domain/question/QuestionAddRemoveAnswersDialog.jsx';
 import QuestionEditor from '../components/domain/question/QuestionEditor.jsx';
@@ -15,7 +15,7 @@ const QuestionPage = () => {
   const params = useParams();
   const [error, setError] = useState(null);
 
-  const { apiGet, apiPut, hasPending } = useApiConnection();
+  const { apiGet, apiPut, hasPending, isAuthenticated } = useApiConnection();
   const [question, setQuestion] = useState(null);
   const [localQuestion, setLocalQuestion] = useState(null);
   const [answerCount, setAnswerCount] = useState(0);
@@ -24,7 +24,8 @@ const QuestionPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [results, setResults] = useState([]);
+  const [votes, setVotes] = useState(0);
+  const [answerWins, setAnswerWins] = useState([]);
 
   useEffect(() => {
     setError(null);
@@ -35,12 +36,14 @@ const QuestionPage = () => {
       })
       .catch(e => setError(e.error));
 
-    apiGet(`/users/me/has-permission/${params.questionId}?keys=question:update,question:update:update-answers`)
-      .then((responseData) => {
-        setCanUpdate(responseData.includes('question:update'));
-        setCanUpdateAnswers(responseData.includes('question:update:update-answers'));
-      })
-      .catch(e => setError(e.error));
+    if (isAuthenticated) {
+      apiGet(`/users/me/has-permission/${params.questionId}?keys=question:update,question:update:update-answers`)
+        .then((responseData) => {
+          setCanUpdate(responseData.includes('question:update'));
+          setCanUpdateAnswers(responseData.includes('question:update:update-answers'));
+        })
+        .catch(e => setError(e.error));
+    }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -50,11 +53,15 @@ const QuestionPage = () => {
         .catch(e => setError(e.error));
 
       apiGet(`/questions/${question.id}/results?count=1000`)
-        .then(resultsData => setResults(resultsData))
+        .then((resultsData) => {
+          setVotes(resultsData.votes);
+          setAnswerWins(resultsData.answerWins);
+        })
         .catch(ex => { console.error(ex); });
     } else {
       setAnswerCount(0);
-      setResults([]);
+      setVotes(0);
+      setAnswerWins([]);
     }
   }, [question]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -63,8 +70,9 @@ const QuestionPage = () => {
   function saveQuestion() {
     setIsSaving(true);
     apiPut(
-      `/questions/${localQuestion.id}?etag=${localQuestion._etag}`,
-      localQuestion)
+      `/questions/${localQuestion.id}?etag=${localQuestion.etag}`,
+      localQuestion,
+    )
       .then((updatedQuestion) => {
         setQuestion(updatedQuestion || null);
         setLocalQuestion(updatedQuestion || null);
@@ -95,7 +103,12 @@ const QuestionPage = () => {
     <VStack alignItems='flex-start' sx={{ p: 4 }}>
       <ReauthenticateAlert error={error} clearError={() => setError(null)} />
       {!isEditing && <QuestionCompactView question={question} />}
-      {isEditing && <QuestionEditor question={localQuestion} onChange={q => setLocalQuestion(q)} />}
+      {isEditing &&
+        <QuestionEditor
+          question={localQuestion}
+          answerCount={answerCount}
+          onChange={q => setLocalQuestion(q)}
+        />}
 
       <Divider />
 
@@ -112,7 +125,12 @@ const QuestionPage = () => {
         </HStack>
       </Heading>
 
-      <BarChart items={results} />
+      <Stat heading='Total Votes' value={votes} />
+      <BarChart
+        items={answerWins}
+        labelFieldName='text'
+        valueFieldName='wins'
+      />
 
       <Wrap spacing={10}>
         <AnswersList

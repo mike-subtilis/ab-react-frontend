@@ -126,7 +126,11 @@ const QuestionPage = () => {
       </Heading>
 
       <Stat heading='Total Votes' value={votes} />
-      <BarChart items={answerWins} />
+      <BarChart
+        items={answerWins}
+        labelFieldName='text'
+        valueFieldName='wins'
+      />
 
       <Wrap spacing={10}>
         <AnswersList

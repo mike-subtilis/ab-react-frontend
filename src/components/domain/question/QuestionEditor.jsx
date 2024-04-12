@@ -11,7 +11,7 @@ const defaultQuestion = {
   publicity: 'private',
 };
 
-const QuestionEditor = ({ question, onChange }) => {
+const QuestionEditor = ({ question, answerCount, onChange }) => {
   const [localQuestion, setLocalQuestion] = useState({ ...defaultQuestion, ...question });
   const isMountedRef = useRef(false);
 
@@ -25,7 +25,7 @@ const QuestionEditor = ({ question, onChange }) => {
     isMountedRef.current = true;
   }, []);
 
-  const canVotingBeOpened = question.answerIds && (question.answerIds.length >= 2);
+  const canVotingBeOpened = answerCount >= 2;
   return <VStack gap={4} align='stretch'>
     <VStack gap={1} align='stretch'>
       <Select
@@ -83,6 +83,7 @@ const QuestionEditor = ({ question, onChange }) => {
 
 QuestionEditor.propTypes = {
   question: PropTypes.object.isRequired,
+  answerCount: PropTypes.number,
   onChange: PropTypes.func.isRequired,
 };
 

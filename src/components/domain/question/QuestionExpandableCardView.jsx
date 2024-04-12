@@ -7,13 +7,11 @@ import { ButtonIconTiny } from '../../common/index.jsx';
 import { BasicCard, Divider, HStack, VStack } from '../../common/layout/index.jsx';
 import BallotGenerator from '../ballot/BallotGenerator.jsx';
 
-// const { apiPut } = useApiConnection();
-
 const QuestionExpandableCardView = ({ question, isInteractive, ...others }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
 
-  const canExpand = isInteractive && question.answerIds?.length > 0;
+  const canExpand = isInteractive && question.isVotingOpen;
 
   /* TODO:
   function addToFavorites() {

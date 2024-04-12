@@ -71,7 +71,8 @@ const QuestionPage = () => {
     setIsSaving(true);
     apiPut(
       `/questions/${localQuestion.id}?etag=${localQuestion.etag}`,
-      localQuestion)
+      localQuestion,
+    )
       .then((updatedQuestion) => {
         setQuestion(updatedQuestion || null);
         setLocalQuestion(updatedQuestion || null);
@@ -105,6 +106,7 @@ const QuestionPage = () => {
       {isEditing &&
         <QuestionEditor
           question={localQuestion}
+          answerCount={answerCount}
           onChange={q => setLocalQuestion(q)}
         />}
 

@@ -66,8 +66,9 @@ const HomePage = () => {
             subheading='Short list of things that I want / need to do for this project'
           />
           <UnorderedList>
-            <ListItem>Masonry question layout? Answer UI update?</ListItem>
-            <ListItem>Backend: use Kafka for analysis (yes, overengineering for small personal project)</ListItem>
+            <ListItem>Add Answers UI improvement</ListItem>
+            <ListItem>Masonry question list layout?</ListItem>
+            <ListItem>Backend: use Kafka or RabbitMQ for analysis (yes, overengineering for small personal project)</ListItem>
             <ListItem>Tags are not just free-text</ListItem>
             <ListItem>Search questions by tag</ListItem>
             <ListItem>Private vs Public / Listed vs Unlisted questions</ListItem>
@@ -87,7 +88,11 @@ const HomePage = () => {
             <ListItem>Frontend: React / Chakra-UI / js</ListItem>
             <ListItem>Backend: Node.js / express</ListItem>
             <ListItem>Authentication: Auth0</ListItem>
-            <ListItem>DB: Azure Cosmos NoSQL (questions, answers, users), Redis (ballots)</ListItem>
+            <ListItem>DB:
+              Postgres on Neon (questions, answers, users),
+              Azure Cosmos DB (results),
+              Redis (ballots)
+            </ListItem>
             <ListItem>Hosting: Azure Web App, Namecheap DNS</ListItem>
           </UnorderedList>
         </VStack>

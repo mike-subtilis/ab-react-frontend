@@ -1,4 +1,4 @@
-import { Heading, Link, Text } from '@chakra-ui/react';
+import { Heading, Link, Text, Textarea as ChakraTextArea } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Stat from './Stat.jsx';
@@ -11,12 +11,17 @@ const SmallText = ({ validation, children }) => {
 };
 SmallText.propTypes = { validation: PropTypes.bool, children: PropTypes.any };
 
+const TextArea = ({ ...others }) => {
+  return <ChakraTextArea resize='none' {...others} />;
+}
+
 const allComponents = {
   Heading,
   Link,
   SmallText,
   Stat,
   Text,
+  TextArea,
   Title,
 };
 
@@ -25,6 +30,7 @@ export { Link };
 export { SmallText };
 export { Stat };
 export { Text };
+export { TextArea };
 export { Title };
 
 export default allComponents;

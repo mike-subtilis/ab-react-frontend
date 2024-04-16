@@ -3,9 +3,8 @@ import { useParams } from 'react-router-dom';
 import BarChart from '../components/charts/BarChart.jsx';
 import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
 import { Button, Toolbar, ToolbarButton, Spinner } from '../components/common/index.jsx';
-import { Divider, HStack, VStack, Wrap, WrapItem } from '../components/common/layout/index.jsx';
-import { Heading, Stat, Text } from '../components/common/text/index.jsx';
-import AnswersList from '../components/domain/answer/AnswersList.jsx';
+import { Divider, HStack, VStack } from '../components/common/layout/index.jsx';
+import { Heading, Stat } from '../components/common/text/index.jsx';
 import QuestionAddRemoveAnswersDialog from '../components/domain/question/QuestionAddRemoveAnswersDialog.jsx';
 import QuestionEditor from '../components/domain/question/QuestionEditor.jsx';
 import QuestionCompactView from '../components/domain/question/QuestionCompactView.jsx';
@@ -23,7 +22,7 @@ const QuestionPage = () => {
   const [canUpdateAnswers, setCanUpdateAnswers] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isAddRemoveAnswersOpen, setIsAddRemoveAnswersOpen] = useState(false);
   const [votes, setVotes] = useState(0);
   const [answerWins, setAnswerWins] = useState([]);
 
@@ -118,7 +117,7 @@ const QuestionPage = () => {
           <span>Answers</span>
           {canUpdateAnswers && <Button
             size='sm'
-            onClick={() => setIsOpen(true)}
+            onClick={() => setIsAddRemoveAnswersOpen(true)}
           >
             Add / Remove Answers
           </Button>}
@@ -132,17 +131,9 @@ const QuestionPage = () => {
         valueFieldName='wins'
       />
 
-      <Wrap spacing={10}>
-        <AnswersList
-          questionIdFilter={question?.id || '-no-question-'}
-          createView={a => <WrapItem key={a.id}><Text>{a.text}</Text></WrapItem>}
-          sort='text'
-        />
-      </Wrap>
-
       <QuestionAddRemoveAnswersDialog
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        isOpen={isAddRemoveAnswersOpen}
+        onClose={() => setIsAddRemoveAnswersOpen(false)}
         question={question}
         onQuestionSaved={q => setQuestion(q)}
       />

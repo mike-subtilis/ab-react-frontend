@@ -1,9 +1,15 @@
 import {
-  Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
-import AnswerSearchableCheckList from '../answer/AnswerSearchableCheckList.jsx';
+import AnswerInputAndFoundList from '../answer/AnswerInputAndFoundList.jsx';
 import ErrorAlert from '../../common/ErrorAlert.jsx';
 import ToolbarButton from '../../common/ToolbarButton.jsx'
 import useApiConnection from '../../../utils/apiConnection';
@@ -27,21 +33,22 @@ const QuestionAddRemoveAnswersDialog = ({ isOpen, onClose, question, onQuestionS
       .catch(e => setError(e.error));
   }
 
-  return <Drawer
+  return <Modal
     isOpen={isOpen}
-    placement='right'
     size='full'
     initialFocusRef={answerTextFieldRef}
     onClose={onClose}
+    scrollBehavior='inside'
   >
-    <DrawerOverlay />
-    <DrawerContent>
-      <DrawerCloseButton disabled={hasPending} />
-      <DrawerHeader>Add Answers</DrawerHeader>
+    <ModalOverlay />
+    <ModalContent>
+      <ModalHeader>Add Answers</ModalHeader>
+      <ModalCloseButton disabled={hasPending} />
 
-      <DrawerBody>
+      <ModalBody>
         {error && <ErrorAlert error={error} />}
-        <AnswerSearchableCheckList
+
+        <AnswerInputAndFoundList
           question={question}
           firstFieldRef={answerTextFieldRef}
           onChange={(v) => {
@@ -51,9 +58,9 @@ const QuestionAddRemoveAnswersDialog = ({ isOpen, onClose, question, onQuestionS
             setHasAddedOrRemovedAnswers(hasAddedAnswers || hasRemovedAnswers);
           }}
         />
-      </DrawerBody>
+      </ModalBody>
 
-      <DrawerFooter>
+      <ModalFooter>
         <ToolbarButton
           isDisabled={hasPending}
           variant='outline'
@@ -69,9 +76,9 @@ const QuestionAddRemoveAnswersDialog = ({ isOpen, onClose, question, onQuestionS
           iconKey='check'
           text='Save'
         />
-      </DrawerFooter>
-    </DrawerContent>
-  </Drawer>;
+      </ModalFooter>
+    </ModalContent>
+  </Modal>;
 };
 
 QuestionAddRemoveAnswersDialog.propTypes = {

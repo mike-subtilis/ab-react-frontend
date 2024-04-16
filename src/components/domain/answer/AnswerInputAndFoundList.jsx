@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import AnswerSimpleCard from './AnswerSimpleCard.jsx';
 import ButtonIcon from '../../common/ButtonIcon.jsx';
 import Spinner from '../../common/Spinner.jsx';
-import { Checkbox } from '../../common/index.jsx';
+import { Button, Checkbox } from '../../common/index.jsx';
 import { HStack, SimpleGrid, VStack, Divider } from '../../common/layout/index.jsx';
 import { Text, TextArea } from '../../common/text/index.jsx';
 import arrayUtil from '../../../utils/arrayUtil.js';
@@ -105,29 +105,45 @@ const AnswerInputAndFoundList = ({ question, firstFieldRef, onChange }) => {
     </Checkbox>;
   }
 
-  return <SimpleGrid columns={2} spacing={5}>
-    <TextArea
-      ref={firstFieldRef}
-      placeholder='Enter one answer per line'
-      value={answerText}
-      onChange={e => setAnswerText(e.target.value)}
-    />
-    <VStack alignItems='flex-start' flexGrow={1}>
-      {hasPending && <Spinner />}
-      {!hasPending && (existingAnswers.length === 0) && <Text>No answers found</Text>}
+  function selectAll() {
+    const existingAnswerIds = existingAnswers.map(a => a.id);
+    const newRemovedAnswerIds = arrayUtil.difference(removedAnswerIds, existingAnswerIds);
+    setRemovedAnswerIds(newRemovedAnswerIds);
+    const newAddedAnswerIds = arrayUtil.uniq([...addedAnswerIds, ...existingAnswerIds]);
+    setAddedAnswerIds(newAddedAnswerIds);
+    setCheckedAnswerIds(newAddedAnswerIds);
+  }
 
-      {newAnswers.map(a => <HStack gap={2} key={a.id}>
-          <ButtonIcon
-            iconKey='plus'
-            disabled={hasExactMatch({ text: answerText }, existingAnswers)}
-            onClick={() => addNewAnswer({ text: answerText })}
-          />
-          {buildAnswerCheckbox(a)}
-        </HStack>)}
-      {(newAnswers.length && existingAnswers.length) && <Divider />}
-      {existingAnswers.map(buildAnswerCheckbox)}
-    </VStack>
-  </SimpleGrid>;
+  return <VStack gap={2} alignItems='stretch'>
+    <SimpleGrid columns={2} spacing={5}>
+      <TextArea
+        ref={firstFieldRef}
+        placeholder='Enter one answer per line'
+        value={answerText}
+        onChange={e => setAnswerText(e.target.value)}
+        style={{ height: '100%' }}
+      />
+      <VStack alignItems='flex-start' flexGrow={1}>
+        {hasPending && <Spinner />}
+        {!hasPending && (existingAnswers.length === 0) && <Text>No answers found</Text>}
+
+        {newAnswers.map(a => <HStack gap={2} key={a.id}>
+            <ButtonIcon
+              iconKey='plus'
+              disabled={hasExactMatch({ text: answerText }, existingAnswers)}
+              onClick={() => addNewAnswer({ text: answerText })}
+            />
+            {buildAnswerCheckbox(a)}
+          </HStack>)}
+        {(newAnswers.length > 0 && existingAnswers.length > 0) && <Divider />}
+        {(existingAnswers.length > 0) &&
+          <Button onClick={selectAll}>
+            Select {existingAnswers.length} Existing Answers
+          </Button>}
+        {existingAnswers.map(buildAnswerCheckbox)}
+      </VStack>
+    </SimpleGrid>
+  </VStack>;
 };
 
 AnswerInputAndFoundList.propTypes = {

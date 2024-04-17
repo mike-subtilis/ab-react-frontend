@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import AnswerSimpleCard from './AnswerSimpleCard.jsx';
 import ButtonIcon from '../../common/ButtonIcon.jsx';
 import Spinner from '../../common/Spinner.jsx';
@@ -10,11 +10,11 @@ import arrayUtil from '../../../utils/arrayUtil.js';
 import useApiConnection from '../../../utils/apiConnection.js';
 import useDebouncedEffect from '../../../utils/useDebouncedEffect.js';
 
-const AnswerInputAndFoundList = ({ question, firstFieldRef, onChange }) => {
+const AnswerInputAndFoundList = forwardRef(function AnswerInputAndFoundList(props, ref) {
+  const { question, onChange } = props;
   const [answerText, setAnswerText] = useState('');
   const [newAnswers, setNewAnswers] = useState([]);
   const [existingAnswers, setExistingAnswers] = useState([]);
-  const [checkedAnswerIds, setCheckedAnswerIds] = useState(question.answerIds || []);
   const [addedAnswerIds, setAddedAnswerIds] = useState([]);
   const [removedAnswerIds, setRemovedAnswerIds] = useState([]);
   const [localError, setLocalError] = useState(null);
@@ -58,7 +58,7 @@ const AnswerInputAndFoundList = ({ question, firstFieldRef, onChange }) => {
     if (onChange) {
       onChange({ addedAnswerIds, removedAnswerIds });
     }
-  }, [addedAnswerIds, removedAnswerIds, onChange]);
+  }, [addedAnswerIds, removedAnswerIds]);
 
   if (localError) {
     return localError;
@@ -67,10 +67,7 @@ const AnswerInputAndFoundList = ({ question, firstFieldRef, onChange }) => {
   function addNewAnswer(newAnswer) {
     setLocalError(null);
     apiPost('/answers', newAnswer)
-      .then((postedAnswer) => {
-        setAddedAnswerIds([...addedAnswerIds, postedAnswer.id]);
-        setCheckedAnswerIds([...checkedAnswerIds, postedAnswer.id]);
-      })
+      .then(postedAnswer => setAddedAnswerIds([...addedAnswerIds, postedAnswer.id]))
       .catch(e => setLocalError(e.error));
   }
 
@@ -81,25 +78,21 @@ const AnswerInputAndFoundList = ({ question, firstFieldRef, onChange }) => {
       key={a.id}
       data-answerid={a.id}
       size='lg'
-      isChecked={checkedAnswerIds.includes(a.id) || (a.questionIds && a.questionIds.includes(question.id))}
+      isChecked={!removedAnswerIds.includes(a.id) && (addedAnswerIds.includes(a.id) || (a.questionIds && a.questionIds.includes(question.id)))}
       onChange={(e) => {
-        let newCheckedAnswerIds;
         if (e.target.checked) {
           if (removedAnswerIds.includes(a.id)) {
             setRemovedAnswerIds(removedAnswerIds.filter(id => id !== a.id));
           } else {
             setAddedAnswerIds(p => [...p, a.id]);
           }
-          newCheckedAnswerIds = [...checkedAnswerIds, a.id];
         } else {
           if (addedAnswerIds.includes(a.id)) {
             setAddedAnswerIds(addedAnswerIds.filter(id => id !== a.id));
           } else {
             setRemovedAnswerIds(p => [...p, a.id]);
           }
-          newCheckedAnswerIds = checkedAnswerIds.filter(v => v !== a.id);
         }
-        setCheckedAnswerIds(newCheckedAnswerIds);
       }}>
       <AnswerSimpleCard answer={a} key={a.id} />
     </Checkbox>;
@@ -111,13 +104,12 @@ const AnswerInputAndFoundList = ({ question, firstFieldRef, onChange }) => {
     setRemovedAnswerIds(newRemovedAnswerIds);
     const newAddedAnswerIds = arrayUtil.uniq([...addedAnswerIds, ...existingAnswerIds]);
     setAddedAnswerIds(newAddedAnswerIds);
-    setCheckedAnswerIds(newAddedAnswerIds);
   }
 
   return <VStack gap={2} alignItems='stretch'>
     <SimpleGrid columns={2} spacing={5}>
       <TextArea
-        ref={firstFieldRef}
+        ref={ref}
         placeholder='Enter one answer per line'
         value={answerText}
         onChange={e => setAnswerText(e.target.value)}
@@ -136,7 +128,7 @@ const AnswerInputAndFoundList = ({ question, firstFieldRef, onChange }) => {
             {buildAnswerCheckbox(a)}
           </HStack>)}
         {(newAnswers.length > 0 && existingAnswers.length > 0) && <Divider />}
-        {(existingAnswers.length > 0) &&
+        {(answerText.length > 0) && (existingAnswers.length > 0) &&
           <Button onClick={selectAll}>
             Select {existingAnswers.length} Existing Answers
           </Button>}
@@ -144,11 +136,10 @@ const AnswerInputAndFoundList = ({ question, firstFieldRef, onChange }) => {
       </VStack>
     </SimpleGrid>
   </VStack>;
-};
+});
 
 AnswerInputAndFoundList.propTypes = {
   question: PropTypes.object,
-  firstFieldRef: PropTypes.any,
   onChange: PropTypes.func,
 };
 

@@ -51,7 +51,7 @@ const QuestionAddRemoveAnswersDialog = ({ isOpen, onClose, question, onQuestionS
 
         <AnswerInputAndFoundList
           question={question}
-          firstFieldRef={answerTextFieldRef}
+          ref={answerTextFieldRef}
           onChange={(v) => {
             setAddedAndRemovedAnswers(v);
             const hasAddedAnswers = addedAndRemovedAnswers.addedAnswerIds && addedAndRemovedAnswers.addedAnswerIds.length;

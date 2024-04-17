@@ -41,7 +41,7 @@ const AnswerInputAndFoundList = ({ question, firstFieldRef, onChange }) => {
   useDebouncedEffect(() => {
     setLocalError(null);
     const trimmedAnswerText = answerText.split('\n').map(t => t.trim()).filter(t => !!t);
-    const filters = { text: trimmedAnswerText.join(',') };
+    const filters = { text: trimmedAnswerText.join(','), includeQuestionIds: true };
     apiGet(`/answers?${new URLSearchParams(filters).toString()}`)
       .then((responseData) => {
         setExistingAnswers(responseData || []);

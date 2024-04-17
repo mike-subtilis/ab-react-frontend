@@ -28,10 +28,12 @@ const QuestionPage = () => {
 
   useEffect(() => {
     setError(null);
-    apiGet(`/questions/${params.questionId}`)
+    const queryOptions = { includeAnswerCount: true };
+    apiGet(`/questions/${params.questionId}?${new URLSearchParams(queryOptions).toString()}`)
       .then((responseData) => {
         setQuestion(responseData || null);
         setLocalQuestion(responseData || null);
+        setAnswerCount(responseData.answerCount);
       })
       .catch(e => setError(e.error));
 
@@ -47,10 +49,6 @@ const QuestionPage = () => {
 
   useEffect(() => {
     if (question) {
-      apiGet(`/answers/count?${new URLSearchParams({ questionId: question.id }).toString()}`)
-        .then(count => setAnswerCount(count))
-        .catch(e => setError(e.error));
-
       apiGet(`/questions/${question.id}/results?count=1000`)
         .then((resultsData) => {
           setVotes(resultsData.votes);

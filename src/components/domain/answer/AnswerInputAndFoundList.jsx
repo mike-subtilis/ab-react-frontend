@@ -81,7 +81,7 @@ const AnswerInputAndFoundList = ({ question, firstFieldRef, onChange }) => {
       key={a.id}
       data-answerid={a.id}
       size='lg'
-      isChecked={checkedAnswerIds.includes(a.id)}
+      isChecked={checkedAnswerIds.includes(a.id) || (a.questionIds && a.questionIds.includes(question.id))}
       onChange={(e) => {
         let newCheckedAnswerIds;
         if (e.target.checked) {

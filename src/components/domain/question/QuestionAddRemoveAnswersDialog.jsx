@@ -1,11 +1,18 @@
 import {
-  Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
-import AnswerSearchableCheckList from '../answer/AnswerSearchableCheckList.jsx';
+import AnswerInputAndFoundList from '../answer/AnswerInputAndFoundList.jsx';
 import ErrorAlert from '../../common/ErrorAlert.jsx';
-import ToolbarButton from '../../common/ToolbarButton.jsx'
+import { Text } from '../../common/text/index.jsx';
+import { ToolbarButton } from '../../common/index.jsx';
 import useApiConnection from '../../../utils/apiConnection';
 
 const QuestionAddRemoveAnswersDialog = ({ isOpen, onClose, question, onQuestionSaved }) => {
@@ -27,36 +34,45 @@ const QuestionAddRemoveAnswersDialog = ({ isOpen, onClose, question, onQuestionS
       .catch(e => setError(e.error));
   }
 
-  return <Drawer
+  return <Modal
     isOpen={isOpen}
-    placement='right'
     size='full'
     initialFocusRef={answerTextFieldRef}
     onClose={onClose}
+    scrollBehavior='inside'
   >
-    <DrawerOverlay />
-    <DrawerContent>
-      <DrawerCloseButton disabled={hasPending} />
-      <DrawerHeader>Add Answers</DrawerHeader>
+    <ModalOverlay />
+    <ModalContent>
+      <ModalHeader>Add Answers</ModalHeader>
+      <ModalCloseButton disabled={hasPending} />
 
-      <DrawerBody>
+      <ModalBody>
         {error && <ErrorAlert error={error} />}
-        <AnswerSearchableCheckList
+
+        <AnswerInputAndFoundList
           question={question}
-          firstFieldRef={answerTextFieldRef}
+          ref={answerTextFieldRef}
           onChange={(v) => {
             setAddedAndRemovedAnswers(v);
             const hasAddedAnswers = addedAndRemovedAnswers.addedAnswerIds && addedAndRemovedAnswers.addedAnswerIds.length;
             const hasRemovedAnswers = addedAndRemovedAnswers.removedAnswerIds && addedAndRemovedAnswers.removedAnswerIds.length;
-            setHasAddedOrRemovedAnswers(hasAddedAnswers || hasRemovedAnswers);
+            setHasAddedOrRemovedAnswers(!!(hasAddedAnswers || hasRemovedAnswers));
           }}
         />
-      </DrawerBody>
+      </ModalBody>
 
-      <DrawerFooter>
+      <ModalFooter>
+        {hasAddedOrRemovedAnswers &&
+          <Text>
+            {addedAndRemovedAnswers.addedAnswerIds.length} added,
+            &nbsp;
+            {addedAndRemovedAnswers.removedAnswerIds.length} removed
+          </Text>}
+
         <ToolbarButton
           isDisabled={hasPending}
           variant='outline'
+          ml={3}
           mr={3}
           onClick={onClose}
           text='Cancel'
@@ -69,9 +85,9 @@ const QuestionAddRemoveAnswersDialog = ({ isOpen, onClose, question, onQuestionS
           iconKey='check'
           text='Save'
         />
-      </DrawerFooter>
-    </DrawerContent>
-  </Drawer>;
+      </ModalFooter>
+    </ModalContent>
+  </Modal>;
 };
 
 QuestionAddRemoveAnswersDialog.propTypes = {

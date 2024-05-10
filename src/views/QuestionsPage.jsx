@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import ReauthenticateAlert from '../components/common/ReauthenticateAlert.jsx';
 import { Button } from '../components/common/index.jsx';
-import { BasicCard, Center, SimpleGrid, VStack } from '../components/common/layout/index.jsx';
+import { BasicCard, Center, Masonry, VStack } from '../components/common/layout/index.jsx';
 import { Heading } from '../components/common/text/index.jsx';
 import QuestionsList from '../components/domain/question/QuestionsList.jsx';
 import QuestionAskDialog from '../components/domain/question/QuestionAskDialog.jsx';
@@ -21,7 +21,7 @@ const QuestionsPage = () => {
         onClose={() => setIsAddDialogOpen(false)}
       />}
 
-    <SimpleGrid columns={{ base: 1, lg: 3, md: 2, sm: 1 }} spacing={8} sx={{ p: 4 }}>
+    <Masonry columns={4} spacing={1} sx={{ p: 4 }}>
       {isAuthenticated &&
         <BasicCard sx={{ background: '#f0f0f0' }}>
           <Button
@@ -41,7 +41,7 @@ const QuestionsPage = () => {
           </Button>
         </BasicCard>}
       <QuestionsList onError={e => setError(e)} />
-    </SimpleGrid>
+    </Masonry>
   </VStack>;
 };
 

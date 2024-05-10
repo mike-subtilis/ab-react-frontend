@@ -1,4 +1,5 @@
 import { Box, Center, Container, Divider, SimpleGrid, Wrap, WrapItem } from '@chakra-ui/react';
+import Masonry from '@mui/lab/Masonry';
 import BasicCard from './BasicCard.jsx';
 import Footer from './Footer.jsx';
 import HStack from './HStack.jsx';
@@ -13,6 +14,7 @@ const allComponents = {
   Divider,
   Footer,
   HStack,
+  Masonry,
   NavBar,
   SimpleGrid,
   VStack,
@@ -27,6 +29,7 @@ export { Container };
 export { Divider };
 export { Footer };
 export { HStack };
+export { Masonry };
 export { NavBar };
 export { SimpleGrid };
 export { VStack };

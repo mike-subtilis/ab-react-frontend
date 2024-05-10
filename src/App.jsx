@@ -1,6 +1,16 @@
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme as chakraExtendTheme } from '@chakra-ui/react';
+import {
+  ThemeProvider as MaterialThemeProvider,
+  createTheme as muiCreateTheme,
+  THEME_ID,
+} from '@mui/material/styles';
+
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 import AuthenticationProvider from './components/auth/AuthenticationProvider.jsx';
 
@@ -16,26 +26,31 @@ import QuestionsPage from './views/QuestionsPage.jsx';
 // styles
 import './App.css';
 
+const chakraTheme = chakraExtendTheme();
+const materialTheme = muiCreateTheme();
+
 // fontawesome
 initFontAwesome();
 
 const App = () => {
   return <BrowserRouter>
     <div id="app" style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <ChakraProvider>
-        <AuthenticationProvider>
-          <NavBar />
-          <Container maxW='100%' style={{ flexGrow: 1 }} sx={{ p: 0 }}>
-            <Routes>
-              <Route path='/' exact element={<QuestionsPage />} />
-              <Route path='/questions/:questionId' element={<QuestionPage />} />
-              <Route path='/answers' exact element={<AnswersPage />} />
-              <Route path='/profile' exact element={<ProfilePageAuthReq />} />
-              <Route path='/about' exact element={<AboutPage />} />
-            </Routes>
-          </Container>
-          <Footer />
-        </AuthenticationProvider>
+      <ChakraProvider theme={chakraTheme} resetCSS>
+        <MaterialThemeProvider theme={{ [THEME_ID]: materialTheme }}>
+          <AuthenticationProvider>
+            <NavBar />
+            <Container maxW='100%' style={{ flexGrow: 1 }} sx={{ p: 0 }}>
+              <Routes>
+                <Route path='/' exact element={<QuestionsPage />} />
+                <Route path='/questions/:questionId' element={<QuestionPage />} />
+                <Route path='/answers' exact element={<AnswersPage />} />
+                <Route path='/profile' exact element={<ProfilePageAuthReq />} />
+                <Route path='/about' exact element={<AboutPage />} />
+              </Routes>
+            </Container>
+            <Footer />
+          </AuthenticationProvider>
+        </MaterialThemeProvider>
       </ChakraProvider>
     </div>
   </BrowserRouter>;

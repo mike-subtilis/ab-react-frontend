@@ -1,7 +1,7 @@
-import { Button } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Button } from './index.jsx';
 
 const ToolbarButton = ({ iconKey, text, isDisabled, isInProgress, ...others }) => {
   let icon = iconKey;

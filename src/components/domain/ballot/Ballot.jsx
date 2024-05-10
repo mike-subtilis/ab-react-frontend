@@ -6,12 +6,14 @@ import { Wrap } from '../../common/layout/index.jsx';
 import { Text } from '../../common/text/index.jsx';
 
 const Ballot = ({ ballot, disabled, onVote }) => {
+  if (!ballot) { return null; }
+
   return <Wrap gap={2} align='center' alignItems='center'>
-    <Button size='sm' onClick={() => onVote(0)} isLoading={disabled || !ballot}>
+    <Button onClick={() => onVote(0)} isLoading={disabled || !ballot}>
       {ballot && <AnswerCompactView answer={ballot.answers[0]} />}
     </Button>
     <Text fontSize='sm' as='b'>vs</Text>
-    <Button size='sm' onClick={() => onVote(1)} isLoading={disabled || !ballot}>
+    <Button onClick={() => onVote(1)} isLoading={disabled || !ballot}>
       {ballot && <AnswerCompactView answer={ballot.answers[1]} />}
     </Button>
   </Wrap>;
